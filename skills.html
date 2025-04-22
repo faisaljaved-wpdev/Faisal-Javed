@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faisal Javed - Skills</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Font Import (Space Grotesk for headers, Roboto for body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(180deg, #0A0E14 0%, #1A1E23 100%);
+      color: #ffffff;
+      overflow-x: hidden;
+      margin: 0;
+    }
+    .section {
+      padding: 2rem 1rem;
+      position: relative;
+    }
+    .gradient-border {
+      border: 2px solid transparent;
+      border-image: linear-gradient(90deg, #3B82F6, #A855F7, #EC4899) 1;
+      border-radius: 1rem;
+    }
+    .card {
+      background-color: rgba(26, 30, 35, 0.95);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .hand-drawn-arrow {
+      position: relative;
+      color: #ffffff;
+      width: 2.875rem;
+      height: 6rem;
+      margin: 20px;
+    }
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    p {
+      line-height: 1.6;
+      color: #A1A1AA;
+    }
+    /* Main Content and Sidebar Layout */
+    .skills-container {
+      display: flex;
+      flex-direction: column;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    .main-content {
+      flex: 1;
+      margin-right: 0;
+    }
+    /* Sidebar Styles */
+    .sidebar {
+      display: none; /* Hidden by default on mobile */
+      position: fixed;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      width: 200px;
+      background-color: rgba(26, 30, 35, 0.95);
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .sidebar a {
+      display: block;
+      color: #A1A1AA;
+      font-size: 0.9rem;
+      padding: 0.5rem 0;
+      text-align: center;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .sidebar a:hover {
+      color: #ffffff;
+    }
+    /* Sidebar Toggle for Mobile */
+    .sidebar-toggle {
+      display: block;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #3b82f6;
+      color: #ffffff;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    /* Skill Section Styles */
+    .skill-section {
+      margin-bottom: 2rem;
+    }
+    .skill-section .card {
+      padding: 2rem;
+      text-align: center;
+    }
+    .skill-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .skill-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .skill-section li {
+      font-size: 1rem;
+      color: #A1A1AA;
+      margin-bottom: 0.5rem;
+    }
+    /* Back Button */
+    .back-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #3B82F6, #EC4899);
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 1rem;
+      margin: 2rem auto;
+      text-align: center;
+    }
+    /* Responsive Design */
+    @media (min-width: 768px) {
+      .skills-container {
+        flex-direction: row;
+      }
+      .main-content {
+        margin-right: 220px; /* Space for sidebar */
+      }
+      .sidebar {
+        display: block; /* Visible on larger screens */
+      }
+      .sidebar-toggle {
+        display: none; /* Hidden on larger screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Toggle for Mobile -->
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Skills</button>
+
+  <!-- Skills Container -->
+  <div class="skills-container">
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">My Skills</h1>
+        <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4" />
+      </div>
+
+      <!-- Skill Sections -->
+      <!-- Web Development -->
+      <section id="web-dev" class="skill-section">
+        <div class="card gradient-border">
+          <h2>Web Development</h2>
+          <ul>
+            <li>Webflow Development & Customization</li>
+            <li>HTML5, CSS3, JavaScript (ES6+)</li>
+            <li>Responsive & Mobile-First Design</li>
+            <li>Custom Animations with GSAP</li>
+            <li>Tailwind CSS & Bootstrap Frameworks</li>
+            <li>React.js for Dynamic Interfaces</li>
+            <li>Git Version Control & GitHub Workflows</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- eCommerce -->
+      <section id="ecommerce" class="skill-section">
+        <div class="card gradient-border">
+          <h2>eCommerce</h2>
+          <ul>
+            <li>WooCommerce Store Development</li>
+            <li>Shopify Store Setup & Customization</li>
+            <li>Payment Gateway Integration (Stripe, PayPal)</li>
+            <li>Inventory Management Systems</li>
+            <li>Third-Party API Integrations</li>
+            <li>Cart & Checkout Optimization</li>
+            <li>Scalable eCommerce Solutions</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Security -->
+      <section id="security" class="skill-section">
+        <div class="card gradient-border">
+          <h2>Security</h2>
+          <ul>
+            <li>WordPress Security Hardening</li>
+            <li>SSL/TLS Implementation</li>
+            <li>Automated Backup & Recovery Solutions</li>
+            <li>Security Audits & Vulnerability Assessments</li>
+            <li>Penetration Testing</li>
+            <li>GDPR & CCPA Compliance</li>
+            <li>Malware Removal & Prevention</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Performance Optimization -->
+      <section id="performance" class="skill-section">
+        <div class="card gradient-border">
+          <h2>Performance Optimization</h2>
+          <ul>
+            <li>Website Speed Optimization</li>
+            <li>SEO Best Practices for Performance</li>
+            <li>Image Optimization & Compression</li>
+            <li>Lazy Loading Implementation</li>
+            <li>Browser Caching Strategies</li>
+            <li>Content Delivery Network (CDN) Setup</li>
+            <li>Core Web Vitals Improvement</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Design & UX -->
+      <section id="design-ux" class="skill-section">
+        <div class="card gradient-border">
+          <h2>Design & UX</h2>
+          <ul>
+            <li>Figma & Adobe XD for Prototyping</li>
+            <li>User Experience (UX) Design</li>
+            <li>User Interface (UI) Design</li>
+            <li>Wireframing & Mockups</li>
+            <li>Accessibility (WCAG) Compliance</li>
+            <li>Design System Creation</li>
+            <li>Branding & Visual Identity</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SEO & Marketing -->
+      <section id="seo-marketing" class="skill-section">
+        <div class="card gradient-border">
+          <h2>SEO & Marketing</h2>
+          <ul>
+            <li>On-Page & Technical SEO</li>
+            <li>Keyword Research & Strategy</li>
+            <li>Google Analytics & Search Console</li>
+            <li>Schema Markup Implementation</li>
+            <li>Content Marketing Strategies</li>
+            <li>Social Media Integration</li>
+            <li>Email Marketing Setup (Mailchimp)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Back Button -->
+      <div class="text-center">
+        <a href="index.html" class="back-button">Back to Home</a>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <a href="#web-dev">Web Development</a>
+      <a href="#ecommerce">eCommerce</a>
+      <a href="#security">Security</a>
+      <a href="#performance">Performance Optimization</a>
+      <a href="#design-ux">Design & UX</a>
+      <a href="#seo-marketing">SEO & Marketing</a>
+    </div>
+  </div>
+
+  <script>
+    // Ensure DOM is fully loaded before attaching event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Log the current URL for debugging
+      console.log('Current URL:', window.location.href);
+
+      // Smooth Scrolling for Sidebar Links
+      document.querySelectorAll('.sidebar a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // Toggle Sidebar on Mobile
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
+      }
+
+      // GSAP Animations
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Animate Skill Sections on Scroll
+      gsap.from('.skill-section', {
+        scrollTrigger: {
+          trigger: '.skills-container',
+          start: 'top 80%'
+        },
+        opacity: 0,
+        y: 50,
+        stagger: 0.2,
+        duration: 0.8
+      });
+
+      // Handle Back Button Navigation
+      const backButton = document.querySelector('.back-button');
+      if (backButton) {
+        console.log('Back button element found');
+        backButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Back button clicked, attempting to navigate to ./index.html');
+          try {
+            window.location.href = './index.html';
+          } catch (error) {
+            console.error('Navigation failed:', error);
+            alert('Unable to navigate to the home page. Please ensure index.html exists in the same directory as skills.html.');
+          }
+        });
+      } else {
+        console.error('Back button element not found');
+      }
+    });
+
+    // Navigation Function (retained for potential future use)
+    function navigateTo(url) {
+      gsap.to('body', {
+        opacity: 0,
+        duration: 0.5,
+        onComplete: () => {
+          fetch(url)
+            .then(response => {
+              console.log('Fetch response status:', response.status);
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.text();
+            })
+            .then(data => {
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(data, 'text/html');
+              document.body.innerHTML = doc.body.innerHTML;
+              document.title = doc.title;
+              const scripts = doc.querySelectorAll('script');
+              scripts.forEach(oldScript => {
+                const newScript = document.createElement('script');
+                newScript.textContent = oldScript.textContent;
+                document.body.appendChild(newScript);
+              });
+              gsap.from('body', {
+                opacity: 0,
+                duration: 0.5
+              });
+              window.history.pushState({}, '', url);
+            })
+            .catch(error => {
+              console.error('Error navigating:', error);
+              window.location.href = url;
+            });
+        }
+      });
+    }
+
+    // Handle Popstate for Browser Back/Forward
+    window.addEventListener('popstate', function() {
+      navigateTo(window.location.href);
+    });
+  </script>
+</body>
+</html>
