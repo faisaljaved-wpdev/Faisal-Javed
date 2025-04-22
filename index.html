@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Faisal Javed - Portfolio</title>
+  <title>Faisal Javed - Skills</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- GSAP CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <!-- Reverted Font Import (Space Grotesk for headers, Roboto as fallback for Sombra for body) -->
+  <!-- Font Import (Space Grotesk for headers, Roboto for body) -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -20,19 +20,8 @@
       margin: 0;
     }
     .section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       padding: 2rem 1rem;
       position: relative;
-    }
-    .navbar {
-      transition: all 0.3s ease;
-    }
-    .navbar.scrolled {
-      background-color: #1a1e23;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
     .gradient-border {
       border: 2px solid transparent;
@@ -44,33 +33,10 @@
       border-radius: 1rem;
       padding: 1.5rem;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      min-height: 228px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-    }
-    /* Specific styles for service cards to add space between borders */
-    .service-card {
-      background-color: transparent;
-      padding: 0.25rem;
-      min-height: auto; /* Allow card to grow naturally */
-    }
-    .card-border-wrapper {
-      background-color: rgba(26, 30, 35, 0.95);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .star {
-      position: absolute;
-      font-size: 1.2rem;
     }
     .hand-drawn-arrow {
       position: relative;
@@ -88,535 +54,266 @@
       line-height: 1.6;
       color: #A1A1AA;
     }
-    .nav-link {
+    /* Main Content and Sidebar Layout */
+    .skills-container {
+      display: flex;
+      flex-direction: column;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    .main-content {
+      flex: 1;
+      margin-right: 0;
+    }
+    /* Sidebar Styles */
+    .sidebar {
+      display: none; /* Hidden by default on mobile */
+      position: fixed;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      width: 200px;
+      background-color: rgba(26, 30, 35, 0.95);
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .sidebar a {
+      display: block;
+      color: #A1A1AA;
+      font-size: 0.9rem;
+      padding: 0.5rem 0;
+      text-align: center;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .sidebar a:hover {
+      color: #ffffff;
+    }
+    /* Sidebar Toggle for Mobile */
+    .sidebar-toggle {
+      display: block;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #3b82f6;
+      color: #ffffff;
       padding: 0.5rem 1rem;
-      font-size: 1.125rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      z-index: 1000;
     }
-    .nav-link:hover {
-      color: #A855F7;
+    /* Skill Section Styles */
+    .skill-section {
+      margin-bottom: 2rem;
     }
-    /* Style for mobile menu links */
-    .mobile-nav-link {
-      font-size: 1.125rem;
+    .skill-section .card {
+      padding: 2rem;
+      text-align: center;
     }
-    /* Style for footer text */
-    .footer-text {
-      font-size: 1.125rem;
-    }
-    /* FAQ Toggle Styles */
-    .faq-chevron {
-      transition: transform 0.3s ease;
-    }
-    .faq-chevron.open {
-      transform: rotate(180deg);
-    }
-    /* Background Lines for Home Section */
-    .bg-lines {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.1;
-      z-index: 0;
-    }
-    /* Custom Styles for Services Section */
-    .service-icon {
-      position: relative;
-      display: inline-block;
-      border-radius: 5px;
-      padding: 2px; /* Creates space for border */
-      background: linear-gradient(to right, #3b82f6, #ec4899); /* blue to pink */
+    .skill-section h2 {
+      font-size: 2rem;
       margin-bottom: 1rem;
     }
-    .service-icon img {
-      display: block;
-      width: 104px;
-      height: 96px;
-      border-radius: 5px;
-      background-color: #111; /* Optional: match background */
+    .skill-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
-    .service-card h3 {
-      font-size: 1.25rem;
-      color: #ffffff;
-      margin-bottom: 0.5rem;
-      text-align: center;
-      max-width: 100%; /* Prevent overflow */
-      overflow-wrap: break-word; /* Break long words */
-    }
-    .service-card p {
-      font-size: 0.875rem;
+    .skill-section li {
+      font-size: 1rem;
       color: #A1A1AA;
+      margin-bottom: 0.5rem;
+    }
+    /* Back Button */
+    .back-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #3B82F6, #EC4899);
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 1rem;
+      margin: 2rem auto;
       text-align: center;
-      max-width: 100%; /* Prevent overflow */
-      overflow-wrap: break-word; /* Break long words */
     }
-    /* Landscape layout on non-mobile devices */
+    /* Responsive Design */
     @media (min-width: 768px) {
-      .service-card {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 0.25rem;
+      .skills-container {
+        flex-direction: row;
       }
-      .service-card .card-border-wrapper {
-        padding: 1.25rem; /* Slightly more padding for breathing room */
+      .main-content {
+        margin-right: 220px; /* Space for sidebar */
       }
-      .service-card h3 {
-        font-size: 1.125rem;
-        margin-bottom: 0.5rem;
-        line-height: 1.2;
-        max-width: 100%; /* Ensure consistency */
-        overflow-wrap: break-word;
+      .sidebar {
+        display: block; /* Visible on larger screens */
       }
-      .service-card p {
-        font-size: 0.875rem;
-        line-height: 1.4;
-        max-width: 100%; /* Ensure consistency */
-        overflow-wrap: break-word;
+      .sidebar-toggle {
+        display: none; /* Hidden on larger screens */
       }
-    }
-    /* FAQ Section Adjustments for Professional Look */
-    #faq .card {
-      padding: 0.5rem; /* Override default .card padding for FAQ section */
-      min-height: auto; /* Remove min-height to allow the card to shrink */
-    }
-    #faq .faq-question {
-      font-size: 1rem; /* Slightly smaller font for the question */
-    }
-    #faq .faq-answer {
-      font-size: 0.875rem; /* Smaller font for the answer */
-      margin-top: 0.25rem; /* Reduce margin between question and answer */
-    }
-    /* Reduce Space Between FAQ and Let's Chat Sections */
-    #faq, #contact {
-      min-height: auto; /* Allow sections to size based on content */
-      padding: 1rem 1rem; /* Reduce vertical padding to 1rem (16px) */
-    }
-    /* Let's Chat Section Adjustments for Better Alignment */
-    #contact .contact-label {
-      font-size: 0.75rem; /* Smaller font for the label */
-      color: #A1A1AA; /* Match paragraph color */
-    }
-    #contact .contact-value {
-      font-size: 1rem; /* Main contact info */
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar fixed top-0 left-0 w-full z-50 bg-transparent">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
-        <div class="flex items-center">
-          <span class="text-2xl font-bold text-white">Faisal Javed</span>
-        </div>
-        <div class="hidden md:flex items-center space-x-4">
-          <a href="#services" class="nav-link text-gray-400 hover:text-white transition">Services</a>
-          <a href="#clients" class="nav-link text-gray-400 hover:text-white transition">Clients</a>
-          <a href="#work" class="nav-link text-gray-400 hover:text-white transition">Work</a>
-          <a href="skills.html" class="nav-link text-gray-400 hover:text-white transition">Skills</a>
-          <a href="#contact" class="nav-link text-gray-400 hover:text-white transition">Let's Chat</a>
-        </div>
-        <div class="md:hidden flex items-center">
-          <button id="menu-toggle" class="text-gray-400 hover:text-white focus:outline-none">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a href="#services" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Services</a>
-        <a href="#clients" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Clients</a>
-        <a href="#work" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Work</a>
-        <a href="skills.html" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Skills</a>
-        <a href="#contact" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Let's Chat</a>
-      </div>
-    </div>
-  </nav>
+  <!-- Sidebar Toggle for Mobile -->
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Skills</button>
 
-  <!-- Home Section (Get Started) -->
-  <section id="home" class="section relative">
-    <!-- Background Lines -->
-    <svg class="bg-lines" preserveAspectRatio="none" viewBox="0 0 1000 1000" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1">
-      <path d="M0 1000L1000 0" />
-      <path d="M0 800L800 0" />
-      <path d="M0 600L600 0" />
-      <path d="M0 400L400 0" />
-      <path d="M0 200L200 0" />
-      <path d="M1000 1000L200 1000" />
-      <path d="M1000 800L400 1000" />
-      <path d="M1000 600L600 1000" />
-      <path d="M1000 400L800 1000" />
-    </svg>
-    <!-- Content -->
-    <div class="text-center max-w-2xl mx-auto relative z-10">
-      <!-- Avatar (replacing the hand emoji) -->
-      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63d76ef1d184c458eab0e71e_aditya-memoji.webp" alt="Avatar" class="w-32 h-32 rounded-full mb-4 inline-block" />
-      <h1 class="text-5xl md:text-6xl font-bold mb-4">Get your awesome site built using Webflow</h1>
-      <p class="text-lg text-gray-400 mb-6">
-        Hello, I’m Aditya Bohra, as a Webflow Expert Partner, I specialize in building custom websites that are tailored to the specific needs of my clients. I have experience working with a wide range of clients in various industries.
-      </p>
-      <a href="#contact" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full hover:from-blue-600 hover:to-purple-700 transition text-lg font-semibold">Get Started</a>
-    </div>
-    <!-- Decorative Elements (Stars) -->
-    <span class="star text-white" style="top: 5%; left: 5%;">✧</span>
-    <span class="star text-teal-400" style="top: 10%; left: 15%;">●</span>
-    <span class="star text-green-400" style="top: 5%; right: 10%;">✨</span>
-    <span class="star text-purple-400" style="top: 15%; right: 5%;">✧</span>
-    <span class="star text-white" style="bottom: 10%; left: 5%;">●</span>
-    <span class="star text-teal-400" style="bottom: 15%; right: 10%;">✨</span>
-    <span class="star text-green-400" style="bottom: 5%; left: 20%;">✧</span>
-    <span class="star text-purple-400" style="bottom: 5%; right: 5%;">●</span>
-  </section>
+  <!-- Skills Container -->
+  <div class="skills-container">
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">My Skills</h1>
+        <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4" />
+      </div>
 
-  <!-- Services Section (Things I could do with my superpowers) -->
-  <section id="services" class="section relative">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-4">Things I could do with my superpowers</h2>
-      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4" />
-      <!-- First and Second Rows Combined: 4 Boxes (2 per row) -->
-      <div class="grid grid-cols-2 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4 md:gap-y-8 mb-4 max-w-3xl mx-auto">
-        <!-- First Row -->
-        <div class="card service-card">
-          <div class="card-border-wrapper gradient-border">
-            <div class="service-icon">
-              <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5d439b039671ca9b7cce_Icons%3D1.svg" alt="Service Icon" />
-            </div>
-            <h3>Turning your ideas into fully functional websites — ready to go online</h3>
-            <p>
-              From idea to launch, I take your designs and turn them into fully functional, professional online platforms.
-            </p>
-          </div>
-        </div>
-        <div class="card service-card">
-          <div class="card-border-wrapper gradient-border">
-            <div class="service-icon">
-              <img src="https://via.placeholder.com/40?text=Icon" alt="Service Icon" />
-            </div>
-            <h3>Complete eCommerce development with WooCommerce</h3>
-            <p>
-              From store setup to custom features, I build fully functional and beautifully designed online stores using WooCommerce — ready to sell, scale, and succeed.
-            </p>
-          </div>
-        </div>
-        <!-- Second Row -->
-        <div class="card service-card">
-          <div class="card-border-wrapper gradient-border">
-            <div class="service-icon">
-              <img src="https://via.placeholder.com/40?text=Icon" alt="Service Icon" />
-            </div>
-            <h3>Secure your WordPress website with top-tier protection</h3>
-            <p>
-              Safeguard your site with my expert security services — tailored for any hosting. I’ll ensure your WordPress site is fortified against threats, fully optimized, and always protected.
-            </p>
-          </div>
-        </div>
-        <div class="card service-card">
-          <div class="card-border-wrapper gradient-border">
-            <div class="service-icon">
-              <img src="https://via.placeholder.com/40?text=Icon" alt="Service Icon" />
-            </div>
-            <h3>Optimize your website for speed and performance</h3>
-            <p>
-              Boost your site’s performance with my expert optimization services — ensuring fast load times, better user experience, and improved SEO rankings.
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- Third Row: 1 Box -->
-      <div class="grid grid-cols-1 md:grid-cols-1 gap-4 mb-4 max-w-sm mx-auto">
-        <div class="card service-card">
-          <div class="card-border-wrapper gradient-border">
-            <div class="service-icon">
-              <img src="https://via.placeholder.com/40?text=Icon" alt="Service Icon" />
-            </div>
-            <h3>Migrate your website to any platform, effortlessly</h3>
-            <p>
-              Upgrade your existing site with my professional migration services — On any custom hosting. I’ll make sure your website moves smoothly, safely, and without downtime.
-            </p>
-          </div>
-        </div>
-      </div>
-      <svg class="hand-drawn-arrow" style="bottom: 5%; right: 5%;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 2C12 8 18 14 18 14M18 14L12 10M18 14L14 10" />
-      </svg>
-    </div>
-  </section>
-
-  <!-- Clients Section (What clients has to say about my work & Some of companies I worked with) -->
-  <section id="clients" class="section relative">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-4">What clients has to say about my work</h2>
-      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4" />
-      <div class="card gradient-border p-6 max-w-xl mx-auto">
-        <div class="flex items-start mb-4">
-          <img src="https://via.placeholder.com/50" alt="Client Avatar" class="w-12 h-12 rounded-full mr-4">
-          <div>
-            <p class="font-semibold text-lg">Rizwan Sajjad</p>
-            <p class="text-gray-400 text-sm">From United States</p>
-          </div>
-        </div>
-        <p class="text-gray-300">
-         Faisal developed our new website exactly as we envisioned. His attention to detail and command over development tools made the entire process smooth and professional. The site not only matched our design perfectly but was also SEO-optimized and fast from day one. Faisal went the extra mile by guiding us on how to manage the site after launch. Truly one of the most reliable and multi-skilled developers we've worked with.
-        </p>
-      </div>
-      <h3 class="text-2xl font-bold text-center mt-8 mb-4">Some of companies I worked with</h3>
-      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4" />
-    </div>
-  </section>
-
-  <!-- Work Section (Some of my work) -->
-  <section id="work" class="section relative">
-    <div class="max-w-5xl mx-auto">
-      <div class="flex flex-wrap justify-center gap-4 mb-8">
-        <img src="https://via.placeholder.com/100x40?text=mamba." alt="mamba logo" class="h-8">
-        <img src="https://via.placeholder.com/100x40?text=Drivetrain" alt="Drivetrain logo" class="h-8">
-        <img src="https://via.placeholder.com/100x40?text=CoreVoice" alt="CoreVoice logo" class="h-8">
-        <img src="https://via.placeholder.com/100x40?text=Growth+School" alt="Growth School logo" class="h-8">
-        <img src="https://via.placeholder.com/100x40?text=Flowchef" alt="Flowchef logo" class="h-8">
-        <img src="https://via.placeholder.com/100x40?text=mycaptain" alt="mycaptain logo" class="h-8">
-        <img src="https://via.placeholder.com/100x40?text=build3" alt="build3 logo" class="h-8">
-        <img src="https://via.placeholder.com/100x40?text=threado." alt="threado logo" class="h-8">
-      </div>
-      <h2 class="text-3xl font-bold text-center mb-4">Some of my work</h2>
-      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4" />
-      <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
+      <!-- Skill Sections -->
+      <!-- Web Development -->
+      <section id="web-dev" class="skill-section">
         <div class="card gradient-border">
-          <img src="https://via.placeholder.com/600x300?text=mamba" alt="mamba project" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="p-4">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-gray-400">mamba.</span>
-              <span class="text-sm text-gray-500">01</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Don’t let your competitors outsell and outgrow you.</h3>
-            <p class="text-gray-400 mb-4">
-              A digital marketing agency which specializes in Brand strategy, content creation, podcasts and product design.
-            </p>
-            <div class="flex space-x-2 mb-4">
-              <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Webflow Development</span>
-              <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Maintenance and Support</span>
-            </div>
-            <a href="#" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">
-              Check the site
-            </a>
-            <span class="absolute top-2 right-2 text-gray-400 text-sm">OUT LIVE</span>
-          </div>
+          <h2>Web Development</h2>
+          <ul>
+            <li>Webflow Development & Customization</li>
+            <li>HTML5, CSS3, JavaScript (ES6+)</li>
+            <li>Responsive & Mobile-First Design</li>
+            <li>Custom Animations with GSAP</li>
+            <li>Tailwind CSS & Bootstrap Frameworks</li>
+            <li>React.js for Dynamic Interfaces</li>
+            <li>Git Version Control & GitHub Workflows</li>
+          </ul>
         </div>
+      </section>
+
+      <!-- eCommerce -->
+      <section id="ecommerce" class="skill-section">
         <div class="card gradient-border">
-          <img src="https://via.placeholder.com/600x300?text=Flowchef" alt="Flowchef project" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="p-4">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-gray-400">FU</span>
-              <span class="text-sm text-gray-500">02</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Maintain, Build and Scale your Webflow site at a fixed price.</h3>
-            <p class="text-gray-400 mb-4">
-              Main, Build and Scale your Webflow site at a fixed price.
-            </p>
-            <div class="flex space-x-2 mb-4">
-              <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Webflow Development</span>
-            </div>
-            <a href="#" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">
-              Check the site
-            </a>
-            <span class="absolute top-2 right-2 text-gray-400 text-sm">OUT LIVE</span>
-          </div>
+          <h2>eCommerce</h2>
+          <ul>
+            <li>WooCommerce Store Development</li>
+            <li>Shopify Store Setup & Customization</li>
+            <li>Payment Gateway Integration (Stripe, PayPal)</li>
+            <li>Inventory Management Systems</li>
+            <li>Third-Party API Integrations</li>
+            <li>Cart & Checkout Optimization</li>
+            <li>Scalable eCommerce Solutions</li>
+          </ul>
         </div>
-      </div>
-      <!-- Read More Button -->
-      <div class="text-center mt-6">
-        <a href="#" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">Read More</a>
-      </div>
-      <svg class="hand-drawn-arrow" style="bottom: 5%; right: 5%;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 2C12 8 18 14 18 14M18 14L12 10M18 14L14 10" />
-      </svg>
-    </div>
-  </section>
+      </section>
 
-  <!-- Retainer Section (FLOW UNBOUNDED) -->
-  <section id="retainer" class="section relative">
-    <div class="max-w-2xl mx-auto text-center">
-      <div class="card gradient-border p-6">
-        <p class="text-sm text-gray-400 mb-2">✦ FLOW UNBOUNDED ✦</p>
-        <h2 class="text-3xl font-bold mb-4">Get Webflow development support with our unique retainer model.</h2>
-        <a href="#contact" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full hover:from-blue-600 hover:to-purple-700 transition text-lg font-semibold">Get in Touch</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section (Frequently asked questions) -->
-  <section id="faq" class="section relative">
-    <div class="max-w-2xl mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-4">Frequently asked questions</h2>
-      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4" />
-      <div class="space-y-4">
-        <!-- FAQ 1 -->
-        <div class="card gradient-border p-2">
-          <button class="w-full text-left flex justify-between items-center faq-question">
-            <span>How long does it take to build a site?</span>
-            <svg class="w-5 h-5 faq-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-          </button>
-          <div class="faq-answer hidden mt-1 text-gray-400">
-            The timeline depends on the project's complexity. A simple site can take 2-4 weeks, while more complex sites with custom features may take 6-8 weeks. I’ll provide a detailed timeline after discussing your needs.
-          </div>
+      <!-- Security -->
+      <section id="security" class="skill-section">
+        <div class="card gradient-border">
+          <h2>Security</h2>
+          <ul>
+            <li>WordPress Security Hardening</li>
+            <li>SSL/TLS Implementation</li>
+            <li>Automated Backup & Recovery Solutions</li>
+            <li>Security Audits & Vulnerability Assessments</li>
+            <li>Penetration Testing</li>
+            <li>GDPR & CCPA Compliance</li>
+            <li>Malware Removal & Prevention</li>
+          </ul>
         </div>
-        <!-- FAQ 2 -->
-        <div class="card gradient-border p-2">
-          <button class="w-full text-left flex justify-between items-center faq-question">
-            <span>My site is done, can you offer support/maintenance work?</span>
-            <svg class="w-5 h-5 faq-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-          </button>
-          <div class="faq-answer hidden mt-1 text-gray-400">
-            Yes, I offer ongoing support and maintenance services to keep your site running smoothly. This includes updates, security checks, and performance optimization, tailored to your needs.
-          </div>
+      </section>
+
+      <!-- Performance Optimization -->
+      <section id="performance" class="skill-section">
+        <div class="card gradient-border">
+          <h2>Performance Optimization</h2>
+          <ul>
+            <li>Website Speed Optimization</li>
+            <li>SEO Best Practices for Performance</li>
+            <li>Image Optimization & Compression</li>
+            <li>Lazy Loading Implementation</li>
+            <li>Browser Caching Strategies</li>
+            <li>Content Delivery Network (CDN) Setup</li>
+            <li>Core Web Vitals Improvement</li>
+          </ul>
         </div>
-        <!-- FAQ 3 -->
-        <div class="card gradient-border p-2">
-          <button class="w-full text-left flex justify-between items-center faq-question">
-            <span>How long does it take to finish to secure my website?</span>
-            <svg class="w-5 h-5 faq-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-          </button>
-          <div class="faq-answer hidden mt-1 text-gray-400">
-            Securing a website typically takes 1-2 weeks, depending on its size and existing setup. This includes implementing SSL, backups, and security plugins, ensuring your site is fully protected.
-          </div>
+      </section>
+
+      <!-- Design & UX -->
+      <section id="design-ux" class="skill-section">
+        <div class="card gradient-border">
+          <h2>Design & UX</h2>
+          <ul>
+            <li>Figma & Adobe XD for Prototyping</li>
+            <li>User Experience (UX) Design</li>
+            <li>User Interface (UI) Design</li>
+            <li>Wireframing & Mockups</li>
+            <li>Accessibility (WCAG) Compliance</li>
+            <li>Design System Creation</li>
+            <li>Branding & Visual Identity</li>
+          </ul>
         </div>
-      </div>
-      <svg class="hand-drawn-arrow mx-auto mt-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 2C12 8 18 14 18 14M18 14L12 10M18 14L14 10" />
-      </svg>
-    </div>
-  </section>
+      </section>
 
-  <!-- Contact Section (Have a project in mind? Let’s chat!) -->
-  <section id="contact" class="section relative">
-    <div class="max-w-lg mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-4">Have a project in mind? Let’s chat!</h2>
-      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4 mb-4" />
-      <div class="flex flex-wrap justify-center gap-6 mb-4">
-        <!-- Email -->
-        <a href="/cdn-cgi/l/email-protection#a1c0c5c8d5d8c0e1d6c4c3c7cdced6e1c6ccc0c8cd8fc2cecc" class="text-gray-400 hover:text-white flex items-center space-x-3">
-          <div class="bg-gray-700/50 rounded-full p-2">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l9-6 9 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16" /></svg>
-          </div>
-          <div class="flex flex-col">
-            <span class="contact-label">mail me at</span>
-            <span class="contact-value">aditya@<span class="__cf_email__" data-cfemail="b0879592969c9f87b0979d91999cde939f9d">[email&#160;protected]</span></span>
-          </div>
-        </a>
-        <!-- Twitter -->
-        <a href="https://twitter.com/Adityabohra15" class="text-gray-400 hover:text-white flex items-center space-x-3">
-          <div class="bg-gray-700/50 rounded-full p-2">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" /></svg>
-          </div>
-          <div class="flex flex-col">
-            <span class="contact-label">twitter</span>
-            <span class="contact-value">@Adityabohra15</span>
-          </div>
-        </a>
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/aditya-bohra08/" class="text-gray-400 hover:text-white flex items-center space-x-3">
-          <div class="bg-gray-700/50 rounded-full p-2">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.5c-.96 0-1.5-.67-1.5-1.5s.54-1.5 1.5-1.5 1.5.67 1.5 1.5-.54 1.5-1.5 1.5zm13.5 10.5h-3v-5.5c0-1.38-.5-2.5-2-2.5s-2 1.12-2 2.5v5.5h-3v-9h3v1.5c.38-.58 1.12-1.5 2.5-1.5 1.88 0 3.5 1.62 3.5 4v5z" /></svg>
-          </div>
-          <div class="flex flex-col">
-            <span class="contact-label">linkedin</span>
-            <span class="contact-value">aditya-bohra08</span>
-          </div>
-        </a>
-      </div>
-      <svg class="hand-drawn-arrow mx-auto mt-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 2C12 8 18 14 18 14M18 14L12 10M18 14L14 10" />
-      </svg>
-    </div>
-  </section>
+      <!-- SEO & Marketing -->
+      <section id="seo-marketing" class="skill-section">
+        <div class="card gradient-border">
+          <h2>SEO & Marketing</h2>
+          <ul>
+            <li>On-Page & Technical SEO</li>
+            <li>Keyword Research & Strategy</li>
+            <li>Google Analytics & Search Console</li>
+            <li>Schema Markup Implementation</li>
+            <li>Content Marketing Strategies</li>
+            <li>Social Media Integration</li>
+            <li>Email Marketing Setup (Mailchimp)</li>
+          </ul>
+        </div>
+      </section>
 
-  <!-- Footer -->
-  <footer class="py-6" style="background: linear-gradient(180deg, #0A0E14 0%, #1A1E23 100%);">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-      <span class="text-gray-400 footer-text">Faisal Javed</span>
-      <div class="flex items-center space-x-4">
-        <span class="text-gray-400 footer-text">Made with ❤️ Designed by Faisal Javed</span>
+      <!-- Back Button -->
+      <div class="text-center">
+        <a href="index.html" class="back-button">Back to Home</a>
       </div>
     </div>
-  </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <a href="#web-dev">Web Development</a>
+      <a href="#ecommerce">eCommerce</a>
+      <a href="#security">Security</a>
+      <a href="#performance">Performance Optimization</a>
+      <a href="#design-ux">Design & UX</a>
+      <a href="#seo-marketing">SEO & Marketing</a>
+    </div>
+  </div>
+
+  <script>
     // Ensure DOM is fully loaded before attaching event listeners
     document.addEventListener('DOMContentLoaded', function() {
-      // Navbar Scroll Effect
-      window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      });
+      // Log the current URL for debugging
+      console.log('Current URL:', window.location.href);
 
-      // Mobile Menu Toggle
-      const menuToggle = document.getElementById('menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-
-      // Smooth Scrolling for Anchor Links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      // Smooth Scrolling for Sidebar Links
+      document.querySelectorAll('.sidebar a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
           e.preventDefault();
           const targetId = this.getAttribute('href').substring(1);
           const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: 'smooth'
-            });
-          }
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
         });
       });
 
-      // Handle Navigation to Skills Page
-      document.querySelectorAll('a[href="skills.html"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          console.log('Skills link clicked, navigating to skills.html'); // Debug log
-          navigateTo('skills.html');
-        });
-      });
-
-      // FAQ Toggle Functionality
-      document.querySelectorAll('.faq-question').forEach(button => {
-        button.addEventListener('click', () => {
-          const answer = button.nextElementSibling;
-          const chevron = button.querySelector('.faq-chevron');
-          answer.classList.toggle('hidden');
-          chevron.classList.toggle('open');
-        });
-      });
+      // Toggle Sidebar on Mobile
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
+      }
 
       // GSAP Animations
       gsap.registerPlugin(ScrollTrigger);
 
-      // Home Section Animation
-      gsap.from('#home > div', {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        delay: 0.5
-      });
-
-      // Services Section Animation
-      gsap.from('#services .card', {
+      // Animate Skill Sections on Scroll
+      gsap.from('.skill-section', {
         scrollTrigger: {
-          trigger: '#services',
+          trigger: '.skills-container',
           start: 'top 80%'
         },
         opacity: 0,
@@ -625,105 +322,58 @@
         duration: 0.8
       });
 
-      // Clients Section Animation
-      gsap.from('#clients .card', {
-        scrollTrigger: {
-          trigger: '#clients',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        duration: 1
-      });
-
-      // Work Section Animation
-      gsap.from('#work .card', {
-        scrollTrigger: {
-          trigger: '#work',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 0.8
-      });
-
-      // Retainer Section Animation
-      gsap.from('#retainer .card', {
-        scrollTrigger: {
-          trigger: '#retainer',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        duration: 1
-      });
-
-      // FAQ Section Animation
-      gsap.from('#faq .card', {
-        scrollTrigger: {
-          trigger: '#faq',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 0.8
-      });
-
-      // Contact Section Animation
-      gsap.from('#contact > div', {
-        scrollTrigger: {
-          trigger: '#contact',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        duration: 1
-      });
+      // Handle Back Button Navigation
+      const backButton = document.querySelector('.back-button');
+      if (backButton) {
+        console.log('Back button element found');
+        backButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Back button clicked, attempting to navigate to ./index.html');
+          try {
+            window.location.href = './index.html';
+          } catch (error) {
+            console.error('Navigation failed:', error);
+            alert('Unable to navigate to the home page. Please ensure index.html exists in the same directory as skills.html.');
+          }
+        });
+      } else {
+        console.error('Back button element not found');
+      }
     });
 
-    // Navigation Function for Smooth Transition
+    // Navigation Function (updated for consistency)
     function navigateTo(url) {
-      // Fade out current content
       gsap.to('body', {
         opacity: 0,
         duration: 0.5,
         onComplete: () => {
-          // Fetch the new page content
           fetch(url)
             .then(response => {
+              console.log('Fetch response status:', response.status);
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
               return response.text();
             })
             .then(data => {
-              // Parse the fetched HTML
               const parser = new DOMParser();
               const doc = parser.parseFromString(data, 'text/html');
-              // Replace the body content
               document.body.innerHTML = doc.body.innerHTML;
-              // Update the document title
               document.title = doc.title;
-              // Reattach scripts (since replacing innerHTML removes event listeners)
               const scripts = doc.querySelectorAll('script');
               scripts.forEach(oldScript => {
                 const newScript = document.createElement('script');
                 newScript.textContent = oldScript.textContent;
                 document.body.appendChild(newScript);
               });
-              // Fade in the new content
               gsap.to('body', {
                 opacity: 1,
                 duration: 0.5
               });
-              // Update browser history
               window.history.pushState({}, '', url);
             })
             .catch(error => {
               console.error('Error navigating:', error);
-              // Fallback: redirect using window.location
               window.location.href = url;
             });
         }
@@ -735,5 +385,5 @@
       navigateTo(window.location.href);
     });
   </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93458838ecfb7b92',t:'MTc0NTMyOTIxNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
