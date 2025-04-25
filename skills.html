@@ -27,16 +27,24 @@
       border: 2px solid transparent;
       border-image: linear-gradient(90deg, #3B82F6, #A855F7, #EC4899) 1;
       border-radius: 1rem;
+      transition: border-image 0.3s ease;
     }
     .card {
       background-color: rgba(26, 30, 35, 0.95);
       border-radius: 1rem;
-      padding: 1.5rem;
+      padding: 1rem;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+    .card:hover .gradient-border {
+      border-image: linear-gradient(90deg, #60A5FA, #C084FC, #F472B6) 1;
     }
     .hand-drawn-arrow {
       position: relative;
@@ -61,29 +69,61 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem 1rem;
+      position: relative;
     }
     .main-content {
       flex: 1;
-      margin-right: 0;
+      margin-right: 0; /* No margin by default for mobile */
+    }
+    /* Backdrop for Sidebar on Mobile */
+    .backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    }
+    .backdrop.open {
+      opacity: 1;
+      visibility: visible;
     }
     /* Sidebar Styles */
     .sidebar {
-      display: none; /* Hidden by default on mobile */
       position: fixed;
+      width: 200px;
       top: 50%;
       right: 1rem;
-      transform: translateY(-50%);
-      width: 200px;
-      background-color: rgba(26, 30, 35, 0.95);
+      left: auto;
+      transform: translateX(100%) translateY(-50%); /* Off-screen to the right by default on mobile */
+      background: linear-gradient(90deg, rgba(26, 30, 35, 0.95), rgba(59, 130, 246, 0.2));
       border-radius: 1rem;
       padding: 1rem;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border: 2px solid transparent;
+      border-image: linear-gradient(90deg, #3B82F6, #A855F7, #EC4899) 1;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: transform 0.5s ease-out, opacity 0.5s ease-out, visibility 0.5s ease-out;
+    }
+    .sidebar.open {
+      transform: translateX(0) translateY(-50%); /* Slide in from the right */
+      opacity: 1;
+      visibility: visible;
+    }
+    .sidebar:hover {
+      border-image: linear-gradient(90deg, #60A5FA, #C084FC, #F472B6) 1;
     }
     .sidebar a {
       display: block;
       color: #A1A1AA;
-      font-size: 0.9rem;
-      padding: 0.5rem 0;
+      font-size: 1rem;
+      padding: 0.75rem 0;
       text-align: center;
       text-decoration: none;
       transition: color 0.3s ease;
@@ -91,40 +131,230 @@
     .sidebar a:hover {
       color: #ffffff;
     }
-    /* Sidebar Toggle for Mobile */
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .close-btn:hover {
+      transform: rotate(90deg);
+    }
+    /* Hamburger Menu for Mobile */
     .sidebar-toggle {
       display: block;
       position: fixed;
       top: 1rem;
       right: 1rem;
-      background-color: #3b82f6;
+      background: linear-gradient(90deg, #3B82F6, #EC4899);
       color: #ffffff;
       padding: 0.5rem 1rem;
       border-radius: 0.5rem;
       cursor: pointer;
-      z-index: 1000;
+      z-index: 1001;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    .sidebar-toggle:hover {
+      background: linear-gradient(90deg, #60A5FA, #F472B6);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
     /* Skill Section Styles */
     .skill-section {
       margin-bottom: 2rem;
     }
+    #seo-marketing {
+      margin-bottom: 4rem; /* Increased spacing before Skills Power */
+    }
     .skill-section .card {
       padding: 2rem;
-      text-align: center;
+      text-align: left; /* Align content left */
     }
     .skill-section h2 {
       font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .skill-section .description {
+      font-size: 1rem;
+      color: #A1A1AA;
       margin-bottom: 1rem;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* Limit to 3 lines */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .skill-section ul {
       list-style: none;
       padding: 0;
       margin: 0;
+      display: none; /* Hidden by default */
+    }
+    .skill-section ul.show {
+      display: block; /* Show when toggled */
     }
     .skill-section li {
       font-size: 1rem;
       color: #A1A1AA;
       margin-bottom: 0.5rem;
+    }
+    .toggle-btn {
+      background: linear-gradient(90deg, #3B82F6, #EC4899);
+      color: #ffffff;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+      align-self: flex-start; /* Align button to the left */
+    }
+    .toggle-btn:hover {
+      background: linear-gradient(90deg, #60A5FA, #F472B6);
+    }
+    /* Skills Power Section */
+    .skills-power-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    /* Mobile Portrait: Single column */
+    @media (max-width: 767px) and (orientation: portrait) {
+      .skills-power-grid {
+        grid-template-columns: 1fr;
+      }
+      .skills-power-card {
+        aspect-ratio: auto; /* Remove portrait shape for mobile portrait */
+      }
+      .main-content {
+        margin-right: 0; /* No margin needed since sidebar slides in/out */
+        padding-top: 4rem; /* Space for hamburger menu */
+      }
+    }
+    /* Mobile Landscape: 3 columns */
+    @media (max-width: 767px) and (orientation: landscape) {
+      .skills-power-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .skills-power-card {
+        aspect-ratio: 3/4; /* Maintain portrait shape for mobile landscape */
+      }
+      .main-content {
+        margin-right: 0; /* No margin needed since sidebar slides in/out */
+        padding-top: 4rem; /* Space for hamburger menu */
+      }
+    }
+    /* Non-Mobile Devices: Ensure sidebar is on the right */
+    @media (min-width: 768px) {
+      .skills-container {
+        flex-direction: row;
+      }
+      .main-content {
+        margin-right: 220px; /* Space for fixed sidebar on the right */
+      }
+      .sidebar {
+        transform: translateY(-50%); /* Always centered vertically, no slide animation */
+        opacity: 1;
+        visibility: visible;
+      }
+      .sidebar-toggle {
+        display: none; /* Hidden on larger screens */
+      }
+      .backdrop {
+        display: none; /* Hidden on larger screens */
+      }
+      .skills-power-card {
+        aspect-ratio: 3/4; /* Enforce portrait shape for non-mobile */
+      }
+      .close-btn {
+        display: none; /* Hidden on larger screens */
+      }
+    }
+    .skills-power-card {
+      background: rgba(26, 30, 35, 0.95);
+      border-radius: 1rem;
+      padding: 1rem;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .skills-power-card .gradient-border {
+      border: 2px solid transparent;
+      border-image: linear-gradient(90deg, #3B82F6, #A855F7, #EC4899) 1;
+      border-radius: 1rem;
+      padding: 1rem;
+      transition: border-image 0.3s ease;
+      height: 100%;
+    }
+    .skills-power-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+    .skills-power-card:hover .gradient-border {
+      border-image: linear-gradient(90deg, #60A5FA, #C084FC, #F472B6) 1;
+    }
+    .skills-power-card:hover .percentage {
+      opacity: 1;
+    }
+    .skills-power-card .content {
+      text-align: left;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .skills-power-card h3 {
+      font-size: 1.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+    .skills-power-card .percentage {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .skills-power-card svg {
+      width: 2rem;
+      height: 2rem;
+      fill: #ffffff;
+    }
+    .skills-power-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0.5rem 0; /* Add margin for spacing */
+      display: block; /* Ensure visibility */
+    }
+    .skills-power-card li {
+      font-size: 1rem;
+      color: #A1A1AA;
+      margin-bottom: 0.25rem;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #333;
+      border-radius: 4px;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3B82F6, #A855F7, #EC4899);
+      transition: width 0.3s ease;
     }
     /* Back Button */
     .back-button {
@@ -138,26 +368,14 @@
       margin: 2rem auto;
       text-align: center;
     }
-    /* Responsive Design */
-    @media (min-width: 768px) {
-      .skills-container {
-        flex-direction: row;
-      }
-      .main-content {
-        margin-right: 220px; /* Space for sidebar */
-      }
-      .sidebar {
-        display: block; /* Visible on larger screens */
-      }
-      .sidebar-toggle {
-        display: none; /* Hidden on larger screens */
-      }
-    }
   </style>
 </head>
 <body>
-  <!-- Sidebar Toggle for Mobile -->
-  <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Skills</button>
+  <!-- Hamburger Menu for Mobile -->
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+  <!-- Backdrop for Sidebar on Mobile -->
+  <div class="backdrop" id="backdrop" onclick="toggleSidebar()"></div>
 
   <!-- Skills Container -->
   <div class="skills-container">
@@ -174,15 +392,11 @@
       <section id="web-dev" class="skill-section">
         <div class="card gradient-border">
           <h2>Web Development</h2>
-          <ul>
-            <li>Webflow Development & Customization</li>
-            <li>HTML5, CSS3, JavaScript (ES6+)</li>
-            <li>Responsive & Mobile-First Design</li>
-            <li>Custom Animations with GSAP</li>
-            <li>Tailwind CSS & Bootstrap Frameworks</li>
-            <li>React.js for Dynamic Interfaces</li>
-            <li>Git Version Control & GitHub Workflows</li>
+          <p class="description">Experienced WordPress developer specializing in Custom and responsive design which meet your needs.</p>
+          <ul class="skill-list">
+            <li>🔹 <strong> Detailed Profile:</strong> <br>I am a proficient WordPress developer with a strong focus on creating responsive designs tailored to meet the needs of high-traffic platforms.<br> My expertise encompasses: <br>▶ Responsive Web Design: Ensuring seamless user experiences across all devices.<br> ▶ E-commerce Solutions: Developing robust online stores using WooCommerce.<br> ▶ Site UI Cloning</strong>: Accurately replicating website layouts and user interfaces using Elementor.
           </ul>
+          <button class="toggle-btn" onclick="toggleSkills(this)">Show More</button>
         </div>
       </section>
 
@@ -190,15 +404,11 @@
       <section id="ecommerce" class="skill-section">
         <div class="card gradient-border">
           <h2>eCommerce</h2>
-          <ul>
-            <li>WooCommerce Store Development</li>
-            <li>Shopify Store Setup & Customization</li>
-            <li>Payment Gateway Integration (Stripe, PayPal)</li>
-            <li>Inventory Management Systems</li>
-            <li>Third-Party API Integrations</li>
-            <li>Cart & Checkout Optimization</li>
-            <li>Scalable eCommerce Solutions</li>
+          <p class="description">Building scalable eCommerce solutions with WooCommerce, including payment gateway integrations.</p>
+          <ul class="skill-list">
+🔹 <strong> Detailed Profile:</strong> <br> I am a skilled WordPress eCommerce developer with hands-on experience in building high-performance online stores using WooCommerce. I create responsive, user-friendly, and conversion-focused websites that help businesses grow their online presence and sales.<br> My key services include:<br> ▶ WooCommerce Development: Setting up and customizing full-featured online stores. <br> ▶ Product & Checkout Page Customization: Tailoring the user flow for better engagement and higher conversion rates. <br> ▶ Payment Gateway Integration: Secure and hassle-free checkout with popular payment methods. <br> ▶ Order Management & Tracking: Streamlining the backend for efficient store management.<br> ▶ Cart & Checkout Optimization: Improving the shopping cart experience to reduce abandonment and boost conversions.
           </ul>
+          <button class="toggle-btn" onclick="toggleSkills(this)">Show More</button>
         </div>
       </section>
 
@@ -206,63 +416,143 @@
       <section id="security" class="skill-section">
         <div class="card gradient-border">
           <h2>Security</h2>
-          <ul>
-            <li>WordPress Security Hardening</li>
-            <li>SSL/TLS Implementation</li>
-            <li>Automated Backup & Recovery Solutions</li>
-            <li>Security Audits & Vulnerability Assessments</li>
-            <li>Penetration Testing</li>
-            <li>GDPR & CCPA Compliance</li>
-            <li>Malware Removal & Prevention</li>
+          <p class="description">Ensuring website security through WordPress hardening and penetration testing.</p>
+          <ul class="skill-list">
+            <li> I provide strong website protection by applying WordPress hardening techniques and conducting basic penetration testing to identify and fix vulnerabilities. This includes securing login pages, disabling unnecessary features, implementing firewall protection, and regularly checking for threats to ensure your site remains safe from hackers, malware, and data breaches.
           </ul>
+          <button class="toggle-btn" onclick="toggleSkills(this)">Show More</button>
         </div>
       </section>
 
-      <!-- Performance Optimization -->
+      <!-- PLanding Pages Creation -->
       <section id="performance" class="skill-section">
         <div class="card gradient-border">
-          <h2>Performance Optimization</h2>
-          <ul>
-            <li>Website Speed Optimization</li>
-            <li>SEO Best Practices for Performance</li>
-            <li>Image Optimization & Compression</li>
-            <li>Lazy Loading Implementation</li>
-            <li>Browser Caching Strategies</li>
-            <li>Content Delivery Network (CDN) Setup</li>
-            <li>Core Web Vitals Improvement</li>
+          <h2>Landing Pages Creationn</h2>
+          <p class="description">Expert in creating high-converting WordPress landing pages for lead generation, sales funnels, and digital marketing campaigns.</p>
+          <ul class="skill-list">
+🔹 <strong> Detailed Profile:</strong> <br> I design and build high-converting landing pages in WordPress tailored to your marketing goals. I focus on clean layout, fast performance, and mobile responsiveness to maximize user engagement and conversion rates.
           </ul>
+          <button class="toggle-btn" onclick="toggleSkills(this)">Show More</button>
         </div>
       </section>
 
-      <!-- Design & UX -->
-      <section id="design-ux" class="skill-section">
-        <div class="card gradient-border">
-          <h2>Design & UX</h2>
-          <ul>
-            <li>Figma & Adobe XD for Prototyping</li>
-            <li>User Experience (UX) Design</li>
-            <li>User Interface (UI) Design</li>
-            <li>Wireframing & Mockups</li>
-            <li>Accessibility (WCAG) Compliance</li>
-            <li>Design System Creation</li>
-            <li>Branding & Visual Identity</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- SEO & Marketing -->
+      <!-- Lifetime Free Support -->
       <section id="seo-marketing" class="skill-section">
         <div class="card gradient-border">
-          <h2>SEO & Marketing</h2>
-          <ul>
-            <li>On-Page & Technical SEO</li>
-            <li>Keyword Research & Strategy</li>
-            <li>Google Analytics & Search Console</li>
-            <li>Schema Markup Implementation</li>
-            <li>Content Marketing Strategies</li>
-            <li>Social Media Integration</li>
-            <li>Email Marketing Setup (Mailchimp)</li>
+          <h2>Lifetime Free Support</h2>
+          <p class="description">Lifetime free WordPress support for bug fixes, updates, and client satisfaction — no hidden charges.</p>
+          <ul class="skill-list">
+🔹 <strong> Detailed Profile:</strong> <br> I offer lifetime free support for all WordPress websites and projects I develop. From minor adjustments to troubleshooting and guidance, I’m always available to help you keep your website running smoothly — at no extra cost.
           </ul>
+          <button class="toggle-btn" onclick="toggleSkills(this)">Show More</button>
+        </div>
+      </section>
+
+      <!-- Skills Power -->
+      <section id="skills-power" class="skill-section">
+        <h2 class="text-center text-3xl mb-6">Skills Power</h2>
+        <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mb-6" />
+        <div class="skills-power-grid">
+          <!-- Web Development Card -->
+          <div class="skills-power-card">
+            <div class="gradient-border">
+              <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h6v6h6v10H6z"/>
+                </svg>
+                <div class="percentage">96%</div>
+                <h3>Web Development</h3>
+                <ul>
+                  <li>WordPress Development</li>
+                  <li>E-commerce Solutions</li>
+                  <li>Responsive Design</li>
+                  <li>Elementor UI Cloning</li>
+                </ul>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: 96%;"></div>
+              </div>
+            </div>
+          </div>
+          <!-- eCommerce Card -->
+          <div class="skills-power-card">
+            <div class="gradient-border">
+              <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M3 5h18v14H3V5zm2 2v10h14V7H5zm2 2h2v2H7V9zm0 4h2v2H7v-2zm4-4h2v2h-2V9zm0 4h2v2h-2v-2zm4-4h2v2h-2V9zm0 4h2v2h-2v-2z"/>
+                </svg>
+                <div class="percentage">93%</div>
+                <h3>eCommerce</h3>
+                <ul>
+                  <li>WooCommerce Development</li>
+                  <li> Cart & Checkout Optimization</li>
+                  <li>Payment Gateway Integration</li>
+                </ul>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: 93%;"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Security Card -->
+          <div class="skills-power-card">
+            <div class="gradient-border">
+              <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M12 2C7.58 2 4 5.58 4 10v4c0 1.1.9 2 2 2h2v6h8v-6h2c1.1 0 2-.9 2-2v-4c0-4.42-3.58-8-8-8zm0 2c3.31 0 6 2.69 6 6v4h-4v-4h-4v4H6v-4c0-3.31 2.69-6 6-6z"/>
+                </svg>
+                <div class="percentage">80%</div>
+                <h3>Security</h3>
+                <ul>
+                  <li>WordPress Security</li>
+                  <li>Penetration Testing</li>
+                  <li>Firewall Protection</li>
+                </ul>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: 80%;"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Landing Pages Creationn Card -->
+          <div class="skills-power-card">
+            <div class="gradient-border">
+              <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                </svg>
+                <div class="percentage">92%</div>
+                <h3>Landing Pages Creationn</h3>
+                <ul>
+                  <li>High-Converting Designs</li>
+                  <li>Mobile Responsiveness</li>
+                </ul>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: 92%;"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Lifetime Free Support -->
+          <div class="skills-power-card">
+            <div class="gradient-border">
+              <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                </svg>
+                <div class="percentage">99%</div>
+                <h3>Lifetime Free Support</h3>
+                <ul>
+                  <li>Bug Fixes</li>
+                  <li>Updates & Maintenance</li>
+                  <li>Client Support</li>
+                </ul>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: 99%;"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -274,12 +564,13 @@
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-      <a href="#web-dev">Web Development</a>
-      <a href="#ecommerce">eCommerce</a>
+      <button class="close-btn" onclick="toggleSidebar()">✖</button>
       <a href="#security">Security</a>
-      <a href="#performance">Performance Optimization</a>
-      <a href="#design-ux">Design & UX</a>
-      <a href="#seo-marketing">SEO & Marketing</a>
+      <a href="#ecommerce">eCommerce</a>
+      <a href="#performance">Landing Pages Creationn</a>
+      <a href="#web-dev">Web Development</a>
+      <a href="#seo-marketing">Lifetime Free Support</a>
+      <a href="#skills-power">Skills Power</a>
     </div>
   </div>
 
@@ -298,14 +589,23 @@
           targetElement.scrollIntoView({
             behavior: 'smooth'
           });
+          // Hide sidebar on mobile after clicking a link
+          if (window.innerWidth <= 767) {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('backdrop');
+            sidebar.classList.remove('open');
+            backdrop.classList.remove('open');
+          }
         });
       });
 
-      // Toggle Sidebar on Mobile
-      function toggleSidebar() {
+      // Toggle Sidebar and Backdrop on Mobile
+      window.toggleSidebar = function() {
         const sidebar = document.getElementById('sidebar');
-        sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
-      }
+        const backdrop = document.getElementById('backdrop');
+        sidebar.classList.toggle('open');
+        backdrop.classList.toggle('open');
+      };
 
       // GSAP Animations
       gsap.registerPlugin(ScrollTrigger);
@@ -340,6 +640,13 @@
         console.error('Back button element not found');
       }
     });
+
+    // Toggle Skills List
+    function toggleSkills(button) {
+      const skillList = button.previousElementSibling;
+      skillList.classList.toggle('show');
+      button.textContent = skillList.classList.contains('show') ? 'Show Less' : 'Show More';
+    }
 
     // Navigation Function (retained for potential future use)
     function navigateTo(url) {
@@ -385,5 +692,6 @@
       navigateTo(window.location.href);
     });
   </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'935d9ac75913bf81',t:'MTc0NTU4MTYzNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
