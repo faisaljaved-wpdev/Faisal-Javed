@@ -1,0 +1,379 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clients Reviews</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-border {
+      position: relative;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      border-radius: 0.5rem;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #4f46e5, #ec4899);
+      z-index: -1;
+      border-radius: 0.5rem;
+    }
+    .custom-arrow {
+      position: relative;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .custom-arrow::after {
+      content: '';
+      display: inline-block;
+      width: 46px;
+      height: 96px;
+      background: url('https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg') no-repeat;
+      background-size: contain;
+      vertical-align: middle;
+    }
+    .button-style {
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.375rem;
+      transition: background 0.3s;
+    }
+    .button-style.gradient {
+      background: linear-gradient(45deg, #4f46e5, #ec4899);
+      color: white;
+    }
+    .button-style.gray {
+      background-color: #4b5563;
+      color: white;
+    }
+    .button-style:hover.gradient {
+      background: linear-gradient(45deg, #4338ca, #db2777);
+    }
+    .button-style:hover.gray {
+      background-color: #4b5563; /* No hover effect */
+    }
+    .scroll-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: #4b5563;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      z-index: 10;
+      transition: background-color 0.3s;
+    }
+    .scroll-button:hover {
+      background-color: #374151;
+    }
+    .scroll-button.up {
+      margin-bottom: 50px;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-400">
+  <!-- Header Section -->
+  <header class="bg-gray-900 border-b border-gray-800">
+    <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="text-2xl font-bold text-white">
+        <a href="https://faisaljaved.pro/">Faisal Javed</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container mx-auto px-4 py-12">
+    <!-- Project Title and Arrow -->
+    <div class="mb-8 text-center">
+      <h1 class="text-4xl font-bold text-white">What clients have to say about my work
+ </h1>
+      <div class="custom-arrow"></div>
+    </div>
+
+    <!-- Client Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <!-- Client Card 1 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Thomas Lue</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal developed our new website exactly as we envisioned. His attention to detail and command over development tools made the entire process smooth and professional. The site not only matched our design perfectly but was also SEO-optimized and fast from day one. Faisal went the extra mile by guiding us on how to manage the site after launch. Truly one of the most reliable and multi-skilled developers we've worked with.
+        </p>
+      </div>
+
+      <!-- Client Card 2 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Rashid Mehmood</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal Javed is a truly exceptional developer who not only delivers top-notch websites but also offers lifetime support absolutely free! It’s rare to find someone so dedicated to client satisfaction. After our project was completed, Faisal continued to assist us with updates, bug fixes, and guidance — without ever charging extra. If you're looking for a professional developer with free ongoing support, look no further than Faisal Javed!
+        </p>
+      </div>
+
+      <!-- Client Card 3 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Emma Stone</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Working with Faisal was a game-changer for our business. He built a stunning e-commerce platform that’s both user-friendly and highly functional. His expertise in optimizing site speed and SEO gave us an edge in the market. Faisal’s communication was top-notch, and he delivered the project ahead of schedule. Highly recommend his services!
+        </p>
+      </div>
+
+      <!-- Client Card 4 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Michael Chen</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal transformed our outdated website into a modern, responsive masterpiece. His ability to understand our brand and translate it into a digital experience was remarkable. The site is now faster, more secure, and ranks higher on search engines. Faisal’s ongoing support has been invaluable!
+        </p>
+      </div>
+
+      <!-- Client Card 5 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Sarah Johnson</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal’s professionalism and technical skills are unmatched. He built a custom web application for our startup that perfectly met our needs. The project was completed on time, and Faisal provided clear documentation and training for our team. His dedication to quality is evident in every detail.
+        </p>
+      </div>
+
+      <!-- Client Card 6 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Ahmed Khan</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal delivered a flawless website for our restaurant, complete with online ordering and reservation features. His attention to user experience made the site intuitive for our customers. Faisal’s post-launch support has been phenomenal, helping us with updates and maintenance without any hassle.
+        </p>
+      </div>
+
+      <!-- Client Card 7 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Laura Martinez</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal’s ability to handle complex projects is impressive. He developed a custom CMS for our blog that’s easy to use and highly secure. The site’s performance has improved significantly, and Faisal’s suggestions for SEO have boosted our traffic. He’s a true professional!
+        </p>
+      </div>
+
+      <!-- Client Card 8 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">James Carter</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal built a sleek portfolio website for our agency that showcases our work beautifully. His design sensibility and technical expertise made the site stand out. Faisal also optimized it for mobile devices, ensuring a seamless experience for all users. Highly recommended!
+        </p>
+      </div>
+
+      <!-- Client Card 9 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Priya Sharma</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal’s work on our non-profit’s website was outstanding. He created a platform that’s both visually appealing and easy to navigate. His focus on accessibility ensured that everyone could use the site. Faisal’s ongoing support has helped us keep the site updated and secure.
+        </p>
+      </div>
+
+      <!-- Client Card 10 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">David Lee</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal developed a robust web application for our logistics company. The app streamlined our operations and improved efficiency. His ability to integrate complex APIs was impressive, and the project was delivered on budget. Faisal’s support post-launch has been exceptional.
+        </p>
+      </div>
+
+      <!-- Client Card 11 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Sophie Brown</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal’s expertise in web development is unparalleled. He built a dynamic website for our fitness brand that’s both engaging and fast. His SEO strategies have driven more traffic to our site, and his support has made maintenance a breeze. Faisal is a true gem!
+        </p>
+      </div>
+
+      <!-- Client Card 12 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Omar Syed</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal created a professional website for our consulting firm that perfectly reflects our brand. His attention to detail and commitment to quality were evident throughout the project. The site is optimized for performance and SEO, and Faisal’s support has been fantastic.
+        </p>
+      </div>
+
+      <!-- Client Card 13 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Emily Davis</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal’s work on our online store was phenomenal. He integrated payment gateways and optimized the site for conversions. The result is a seamless shopping experience for our customers. Faisal’s ongoing support ensures our site stays updated and secure.
+        </p>
+      </div>
+
+      <!-- Client Card 14 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Liam Wilson</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal built a custom dashboard for our SaaS product that’s both intuitive and powerful. His ability to understand our requirements and deliver a polished product was impressive. The dashboard has improved our user retention, and Faisal’s support is always prompt.
+        </p>
+      </div>
+
+      <!-- Client Card 15 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Aisha Malik</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal delivered a stunning website for our travel agency that’s both visually captivating and functional. His expertise in responsive design ensured the site looks great on all devices. Faisal’s SEO optimizations have increased our bookings significantly.
+        </p>
+      </div>
+
+      <!-- Client Card 16 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Noah Kim</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal’s work on our educational platform was exceptional. He built a user-friendly interface that’s perfect for students and teachers. His focus on performance and security gave us confidence in the platform. Faisal’s support has been invaluable for our team.
+        </p>
+      </div>
+
+      <!-- Client Card 17 -->
+      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex items-start mb-4">
+          <div>
+            <p class="font-semibold text-lg text-white">Isabella Rossi</p>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm line-clamp-10">
+          Faisal created a beautiful website for our boutique that’s both elegant and easy to manage. His attention to detail and creative input elevated our brand. The site’s performance and SEO have driven more customers to our store. Faisal is a true professional!
+        </p>
+      </div>
+    </div>
+
+    <!-- Back to Home Button -->
+    <div class="text-center mt-8">
+      <a href="https://faisaljaved.pro/" class="button-style gradient text-white px-4 py-2 rounded transition">Back to Home</a>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="bg-gray-900 border-t border-gray-800 py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+        <a href="https://faisaljaved.pro/">Faisal Javed</a>
+      <div>Made with ♥ Designed by Faisal Javed</div>
+    </div>
+  </footer>
+
+  <!-- Scroll Buttons -->
+  <button class="scroll-button up" onclick="scrollToTop()">↑</button>
+  <button class="scroll-button" onclick="scrollToBottom()">↓</button>
+
+<script>
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function scrollToBottom() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+</script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93a6d9776a77bfa2',t:'MTc0NjM0OTY2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>
