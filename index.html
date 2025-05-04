@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Faisal Javed - Portfolio</title>
+  <meta name="description" content="Hire Faisal Javed for professional WordPress development, eCommerce solutions, and website security. View portfolio and client reviews.">
+  <title>Faisal Javed - Expert Word-press Developer | Custom Website Solutions</title>
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Faisal Javed" />
+<link rel="manifest" href="/site.webmanifest" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- GSAP CDN -->
@@ -52,11 +60,10 @@
       justify-content: center;
       align-items: center;
     }
-    /* Specific styles for service cards to add space between borders */
     .service-card {
       background-color: transparent;
       padding: 0.25rem;
-      min-height: auto; /* Allow card to grow naturally */
+      min-height: auto;
     }
     .card-border-wrapper {
       background-color: rgba(26, 30, 35, 0.95);
@@ -99,22 +106,18 @@
     .nav-link:hover {
       color: #A855F7;
     }
-    /* Style for mobile menu links */
     .mobile-nav-link {
       font-size: 1.125rem;
     }
-    /* Style for footer text */
     .footer-text {
       font-size: 1.125rem;
     }
-    /* FAQ Toggle Styles */
     .faq-chevron {
       transition: transform 0.3s ease;
     }
     .faq-chevron.open {
       transform: rotate(180deg);
     }
-    /* Background Lines for Home Section */
     .bg-lines {
       position: absolute;
       top: 0;
@@ -124,13 +127,12 @@
       opacity: 0.1;
       z-index: 0;
     }
-    /* Custom Styles for Services Section */
     .service-icon {
       position: relative;
       display: inline-block;
       border-radius: 5px;
-      padding: 2px; /* Creates space for border */
-      background: linear-gradient(to right, #3b82f6, #ec4899); /* blue to pink */
+      padding: 2px;
+      background: linear-gradient(to right, #3b82f6, #ec4899);
       margin-bottom: 1rem;
     }
     .service-icon img {
@@ -138,24 +140,23 @@
       width: 104px;
       height: 96px;
       border-radius: 5px;
-      background-color: #111; /* Optional: match background */
+      background-color: #111;
     }
     .service-card h3 {
       font-size: 1.25rem;
       color: #ffffff;
       margin-bottom: 0.5rem;
       text-align: center;
-      max-width: 100%; /* Prevent overflow */
-      overflow-wrap: break-word; /* Break long words */
+      max-width: 100%;
+      overflow-wrap: break-word;
     }
     .service-card p {
       font-size: 0.875rem;
       color: #A1A1AA;
       text-align: center;
-      max-width: 100%; /* Prevent overflow */
-      overflow-wrap: break-word; /* Break long words */
+      max-width: 100%;
+      overflow-wrap: break-word;
     }
-    /* Landscape layout on non-mobile devices */
     @media (min-width: 768px) {
       .service-card {
         display: flex;
@@ -166,46 +167,43 @@
         padding: 0.25rem;
       }
       .service-card .card-border-wrapper {
-        padding: 1.25rem; /* Slightly more padding for breathing room */
+        padding: 1.25rem;
       }
       .service-card h3 {
         font-size: 1.125rem;
         margin-bottom: 0.5rem;
         line-height: 1.2;
-        max-width: 100%; /* Ensure consistency */
+        max-width: 100%;
         overflow-wrap: break-word;
       }
       .service-card p {
         font-size: 0.875rem;
         line-height: 1.4;
-        max-width: 100%; /* Ensure consistency */
+        max-width: 100%;
         overflow-wrap: break-word;
       }
     }
-    /* FAQ Section Adjustments for Professional Look */
     #faq .card {
-      padding: 0.5rem; /* Override default .card padding for FAQ section */
-      min-height: auto; /* Remove min-height to allow the card to shrink */
+      padding: 0.5rem;
+      min-height: auto;
     }
     #faq .faq-question {
-      font-size: 1rem; /* Slightly smaller font for the question */
+      font-size: 1rem;
     }
     #faq .faq-answer {
-      font-size: 0.875rem; /* Smaller font for the answer */
-      margin-top: 0.25rem; /* Reduce margin between question and answer */
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
     }
-    /* Reduce Space Between FAQ and Let's Chat Sections */
     #faq, #contact {
-      min-height: auto; /* Allow sections to size based on content */
-      padding: 1rem 1rem; /* Reduce vertical padding to 1rem (16px) */
+      min-height: auto;
+      padding: 1rem 1rem;
     }
-    /* Let's Chat Section Adjustments for Better Alignment */
     #contact .contact-label {
-      font-size: 0.75rem; /* Smaller font for the label */
-      color: #A1A1AA; /* Match paragraph color */
+      font-size: 0.75rem;
+      color: #A1A1AA;
     }
     #contact .contact-value {
-      font-size: 1rem; /* Main contact info */
+      font-size: 1rem;
     }
   </style>
 </head>
@@ -221,7 +219,7 @@
           <a href="#services" class="nav-link text-gray-400 hover:text-white transition">Services</a>
           <a href="#clients" class="nav-link text-gray-400 hover:text-white transition">Clients</a>
           <a href="#work" class="nav-link text-gray-400 hover:text-white transition">Work</a>
-          <a href="https://themiyaji.github.io/Faisal-Javed/skills.html" class="nav-link text-gray-400 hover:text-white transition">Skills</a>
+          <a href="https://faisaljaved.pro/skills.html" class="nav-link text-gray-400 hover:text-white transition">Skills</a>
           <a href="#contact" class="nav-link text-gray-400 hover:text-white transition">Let's Chat</a>
         </div>
         <div class="md:hidden flex items-center">
@@ -239,7 +237,7 @@
         <a href="#services" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Services</a>
         <a href="#clients" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Clients</a>
         <a href="#work" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Work</a>
-        <a href="https://themiyaji.github.io/Faisal-Javed/skills.html" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Skills</a>
+        <a href="https://faisaljaved.pro/skills.html" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Skills</a>
         <a href="#contact" class="mobile-nav-link block text-gray-400 hover:text-white px-3 py-2 rounded-md">Let's Chat</a>
       </div>
     </div>
@@ -247,7 +245,6 @@
 
   <!-- Home Section (Get Started) -->
   <section id="home" class="section relative">
-    <!-- Background Lines -->
     <svg class="bg-lines" preserveAspectRatio="none" viewBox="0 0 1000 1000" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1">
       <path d="M0 1000L1000 0" />
       <path d="M0 800L800 0" />
@@ -259,17 +256,14 @@
       <path d="M1000 600L600 1000" />
       <path d="M1000 400L800 1000" />
     </svg>
-    <!-- Content -->
     <div class="text-center max-w-2xl mx-auto relative z-10">
-      <!-- Avatar (replacing the hand emoji) -->
-      <img src="Faisal Javed -copy.jpg" alt="Faisal Javed - Professional WordPress Developer & Website Expert"" class="w-32 h-32 rounded-full mb-4 inline-block" />
+      <img src="Faisal Javed -copy.jpg" alt="Faisal Javed - Professional WordPress Developer" class="w-32 h-32 rounded-full mb-4 inline-block" />
       <h1 class="text-5xl md:text-6xl font-bold mb-4">Get your awesome site <br> with Faisal Javed</h1>
       <p class="text-lg text-gray-400 mb-6">
-      Hello, I’m Faisal Javed, as a Wordpress Developer, I specialize in building custom websites that are tailored to the specific needs of my clients. I have experience working with a wide range of clients in various industries.
+        Hello, I’m Faisal Javed, a professional WordPress developer specializing in custom websites, eCommerce solutions, and website security for clients worldwide.
       </p>
       <a href="#contact" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full hover:from-blue-600 hover:to-purple-700 transition text-lg font-semibold">Get Started</a>
     </div>
-    <!-- Decorative Elements (Stars) -->
     <span class="star text-white" style="top: 5%; left: 5%;">✧</span>
     <span class="star text-teal-400" style="top: 10%; left: 15%;">●</span>
     <span class="star text-green-400" style="top: 5%; right: 10%;">✨</span>
@@ -282,70 +276,66 @@
     <span class="star text-purple-400" style="bottom: 5%; right: 5%;">●</span>
   </section>
 
-  <!-- Services Section (Things I could do with my superpowers) -->
+  <!-- Services Section -->
   <section id="services" class="section relative">
     <div class="max-w-5xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-4">Things I could do with my superpowers</h2>
-      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4" />
-      <!-- First and Second Rows Combined: 4 Boxes (2 per row) -->
+      <h2 class="text-4xl font-bold text-center mb-4">Professional WordPress Development Services</h2>
+      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Decorative Arrow" class="hand-drawn-arrow mx-auto mt-4" />
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4 md:gap-y-8 mb-4 max-w-3xl mx-auto">
-        <!-- First Row -->
         <div class="card service-card">
           <div class="card-border-wrapper gradient-border">
             <div class="service-icon">
-              <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5d439b039671ca9b7cce_Icons%3D1.svg" alt="WordPress Website Development" />
+              <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5d439b039671ca9b7cce_Icons%3D1.svg" alt="Custom WordPress Website Development" />
             </div>
-            <h3>Turning your ideas into fully functional websites — ready to go online</h3>
+            <h3>Custom WordPress Website Development</h3>
             <p>
-              From idea to launch, I take your designs and turn them into fully functional, professional online platforms.
+              Transform your vision into a fully functional, responsive WordPress website tailored to your brand and business needs.
             </p>
           </div>
         </div>
         <div class="card service-card">
           <div class="card-border-wrapper gradient-border">
             <div class="service-icon">
-              <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSrpka26R-kBw3BSIUTZhq68DGuZAkkioi9BDOD1kSL4ig5daGN" alt="eCommerce Development with woocommerce" />
+              <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSrpka26R-kBw3BSIUTZhq68DGuZAkkioi9BDOD1kSL4ig5daGN" alt="eCommerce Development with WooCommerce" />
             </div>
-            <h3>Complete eCommerce development with WooCommerce</h3>
+            <h3>eCommerce Development with WooCommerce</h3>
             <p>
-              From store setup to custom features, I build fully functional and beautifully designed online stores using WooCommerce — ready to sell, scale, and succeed.
-            </p>
-          </div>
-        </div>
-        <!-- Second Row -->
-        <div class="card service-card">
-          <div class="card-border-wrapper gradient-border">
-            <div class="service-icon">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlrWSMKhwyFMcjFo8GMUbwx-h5-Qv2H7ojM6D4h1c9P9R3pDk5" alt="Website Security" />
-            </div>
-            <h3>Secure your WordPress website with top-tier protection</h3>
-            <p>
-              Safeguard your site with my expert security services — tailored for any hosting. I’ll ensure your WordPress site is fortified against threats, fully optimized, and always protected.
+              Build a professional online store with WooCommerce, featuring custom designs and seamless functionality to drive sales.
             </p>
           </div>
         </div>
         <div class="card service-card">
           <div class="card-border-wrapper gradient-border">
             <div class="service-icon">
-              <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5d43b966f57b628bf9fa_Icons%3D4.svg" alt="Website Development Support" />
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlrWSMKhwyFMcjFo8GMUbwx-h5-Qv2H7ojM6D4h1c9P9R3pDk5" alt="WordPress Website Security" />
             </div>
-            <h3>Support and Consultation</h3>
+            <h3>WordPress Website Security Services</h3>
             <p>
-              From simple troubleshooting to in-depth consultations, I offer a full range of my support services to help you succeed online
+              Protect your WordPress site with advanced security measures, including SSL, backups, and ongoing monitoring.
+            </p>
+          </div>
+        </div>
+        <div class="card service-card">
+          <div class="card-border-wrapper gradient-border">
+            <div class="service-icon">
+              <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5d43b966f57b628bf9fa_Icons%3D4.svg" alt="WordPress Support and Consultation" />
+            </div>
+            <h3>WordPress Support and Consultation</h3>
+            <p>
+              Get expert support and tailored consultations to troubleshoot issues and optimize your WordPress site’s performance.
             </p>
           </div>
         </div>
       </div>
-      <!-- Third Row: 1 Box -->
       <div class="grid grid-cols-1 md:grid-cols-1 gap-4 mb-4 max-w-sm mx-auto">
         <div class="card service-card">
           <div class="card-border-wrapper gradient-border">
             <div class="service-icon">
-              <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5d430a308bd0be496da4_Icons%3D2.svg" alt="Migration of website" />
+              <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5d430a308bd0be496da4_Icons%3D2.svg" alt="Website Migration Services" />
             </div>
-            <h3>Migrate your website to any platform, effortlessly</h3>
+            <h3>Website Migration Services</h3>
             <p>
-              Upgrade your existing site with my professional migration services — On any custom hosting. I’ll make sure your website moves smoothly, safely, and without downtime.
+              Seamlessly migrate your website to any platform with zero downtime, ensuring a smooth transition and optimal performance.
             </p>
           </div>
         </div>
@@ -356,166 +346,157 @@
     </div>
   </section>
 
-<section id="clients" class="section relative py-12 bg-gray-900">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-3xl font-bold text-center mb-2 text-white">What clients have to say about my work</h2>
-    <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mb-8" />
-    
-    <!-- Client Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-      <!-- Client Card 1 -->
-      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
-        <div class="flex items-start mb-4">
-          <div>
-            <p class="font-semibold text-lg text-white">Thomas Lue</p>
+  <!-- Clients Section -->
+  <section id="clients" class="section relative py-12 bg-gray-900">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-2 text-white">Client Testimonials</h2>
+      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Decorative Arrow" class="hand-drawn-arrow mx-auto mb-8" />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg" itemscope itemtype="https://schema.org/Review">
+          <div class="flex items-start mb-4">
+            <div>
+              <p class="font-semibold text-lg text-white" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <span itemprop="name">Thomas Lue</span>
+              </p>
+            </div>
           </div>
-        </div>
-        <p class="text-gray-300 text-sm line-clamp-10">
-          Faisal developed our new website exactly as we envisioned. His attention to detail and command over development tools made the entire process smooth and professional. The site not only matched our design perfectly but was also SEO-optimized and fast from day one. Faisal went the extra mile by guiding us on how to manage the site after launch. Truly one of the most reliable and multi-skilled developers we've worked with.
-        </p>
-      </div>
-      
-      <!-- Client Card 2 -->
-      <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg">
-        <div class="flex items-start mb-4">
-          <div>
-            <p class="font-semibold text-lg text-white">Rashid Mehmood</p>
-          </div>
-        </div>
-        <p class="text-gray-300 text-sm line-clamp-10">
-         Faisal Javed is a truly exceptional developer who not only delivers top-notch websites but also offers lifetime support absolutely free! It’s rare to find someone so dedicated to client satisfaction. After our project was completed, Faisal continued to assist us with updates, bug fixes, and guidance — without ever charging extra. <br> <br> If you're looking for a professional developer with free ongoing support, look no further than Faisal Javed!
-        </p>
-      </div>
-    </div>
-
-    <!-- Read More Button -->
-    <div class="flex justify-center mb-10">
-      <a href="https://www.faisaljaved.pro/client_reviews.html" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">Read More</a>
-    </div>
-
-    <!-- Companies Section -->
-    <h3 class="text-2xl font-bold text-center mb-2 text-white">Some of the companies I worked with</h3>
-    <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mb-8" />
-    
-    <!-- Company Logos -->
-    <div class="flex flex-wrap justify-center gap-6">
-      <div class="service-icon">
-        <img src="Online Marketplace.jpg" alt="Online Marketplace Company" class="h-6" />
-      </div>
-      <div class="service-icon">
-        <img src="PK-Decoration.jpg" alt="PK Decoration Company" class="h-6" />
-      </div>
-      <div class="service-icon">
-        <img src="https://cutt.ly/5rhm49LP" alt="Upwork logo" class="h-6" />
-      </div>
-      <div class="service-icon">
-        <img src="https://logos-world.net/wp-content/uploads/2020/12/Fiverr-Logo.png" alt="Fiverr logo" class="h-6" />
-      </div>
-      <div class="service-icon">
-        <img src="https://cutt.ly/XrhQw7aq" alt="Some Altri Companies" class="h-6" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Work Section (Some of my work) -->
-<section id="work" class="section relative">
-  <div class="max-w-5xl mx-auto">
-    <h2 class="text-3xl font-bold text-center mb-2">Some of my work</h2>
-    <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto" />
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="card gradient-border">
-        <div class="w-full h-64 overflow-y-auto rounded-t-lg border border-gray-700 auto-scroll" id="scrollContainer1">
-          <img src="Crescent Shopping Center.png" alt="Crescent Shopping Center" class="w-full object-contain">
-        </div>
-        <div class="p-4">
-          <div class="flex justify-between items-center mb-2">
-            <span class="text-gray-400"></span>
-            <span class="text-sm text-gray-500">01</span>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">The Ultimate Retail Destination</h3>
-          <p class="text-gray-400 mb-4">
-            Experience the best of shopping, dining, and more at Crescent Shopping Center.
+          <p class="text-gray-300 text-sm line-clamp-10" itemprop="reviewBody">
+            Faisal developed our new website exactly as we envisioned. His attention to detail and command over development tools made the entire process smooth and professional...
           </p>
-          <div class="flex space-x-2 mb-4">
-            <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Retail Website Development</span>
-            <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Shopping Mall Solutions</span>
-          </div>
-          <a href="https://crescentshoppingcentre.ie/" target="_blank" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">
-            Check the site
-          </a>
-          <span class="absolute top-2 right-2 text-gray-400 text-sm">LIVE</span>
+          <meta itemprop="reviewRating" content="5">
         </div>
-      </div>
-      <div class="card gradient-border">
-        <div class="w-full h-64 overflow-y-auto rounded-t-lg border border-gray-700 auto-scroll" id="scrollContainer2">
-          <img src="Lorand Expert.png" alt="Lorand Expert" class="w-full object-contain">
-        </div>
-        <div class="p-4">
-          <div class="flex justify-between items-center mb-2">
-            <span class="text-gray-400"></span>
-            <span class="text-sm text-gray-500">02</span>
+        <div class="card gradient-border p-6 bg-gray-800 rounded-lg shadow-lg" itemscope itemtype="https://schema.org/Review">
+          <div class="flex items-start mb-4">
+            <div>
+              <p class="font-semibold text-lg text-white" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <span itemprop="name">Rashid Mehmood</span>
+              </p>
+            </div>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Maintain, Build and Scale your website at a fixed price.</h3>
-          <p class="text-gray-400 mb-4">
-            Rebuild your site like more Professional and user-friendly 
+          <p class="text-gray-300 text-sm line-clamp-10" itemprop="reviewBody">
+            Faisal Javed is a truly exceptional developer who not only delivers top-notch websites but also offers lifetime support absolutely free!...
           </p>
-          <div class="flex space-x-2 mb-4">
-            <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Rebuild</span>
-            <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Web Maintenance</span>
-          </div>
-          <a href="https://lorandexpert.com/" target="_blank" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">
-            Check the site
-          </a>
-          <span class="absolute top-2 right-2 text-gray-400 text-sm">LIVE</span>
+          <meta itemprop="reviewRating" content="5">
+        </div>
+      </div>
+      <div class="flex justify-center mb-10">
+        <a href="https://faisaljaved.pro/my_projects.html" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">Read More</a>
+      </div>
+      <h3 class="text-2xl font-bold text-center mb-2 text-white">Some of the Companies I Worked With</h3>
+      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Decorative Arrow" class="hand-drawn-arrow mx-auto mb-8" />
+      <div class="flex flex-wrap justify-center gap-6">
+        <div class="service-icon">
+          <img src="Online Marketplace.jpg" alt="Online Marketplace Company Logo" class="h-6" />
+        </div>
+        <div class="service-icon">
+          <img src="PK-Decoration.png" alt="PK Decoration Company Logo" class="h-6" />
+        </div>
+        <div class="service-icon">
+          <img src="https://cutt.ly/5rhm49LP" alt="Upwork Freelance Platform Logo" class="h-6" />
+        </div>
+        <div class="service-icon">
+          <img src="https://logos-world.net/wp-content/uploads/2020/12/Fiverr-Logo.png" alt="Fiverr Freelance Platform Logo" class="h-6" />
+        </div>
+        <div class="service-icon">
+          <img src="https://cutt.ly/XrhQw7aq" alt="Altri Companies Logo" class="h-6" />
         </div>
       </div>
     </div>
-    <!-- Read More Button -->
-    <div class="text-center mt-4">
-      <a href="https://themiyaji.github.io/Faisal-Javed/my_projects.html" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">Read More</a>
+  </section>
+
+  <!-- Work Section -->
+  <section id="work" class="section relative">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-2">Featured WordPress Projects</h2>
+      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Decorative Arrow" class="hand-drawn-arrow mx-auto" />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="card gradient-border">
+          <div class="w-full h-64 overflow-y-auto rounded-t-lg border border-gray-700 auto-scroll" id="scrollContainer1">
+            <img src="Crescent Shopping Center.png" alt="Crescent Shopping Center WordPress Website" class="w-full object-contain">
+          </div>
+          <div class="p-4">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-gray-400"></span>
+              <span class="text-sm text-gray-500">01</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">The Ultimate Retail Destination</h3>
+            <p class="text-gray-400 mb-4">
+              A custom WordPress website for Crescent Shopping Center, offering seamless shopping and dining experiences.
+            </p>
+            <div class="flex space-x-2 mb-4">
+              <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Retail Website Development</span>
+              <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Shopping Mall Solutions</span>
+            </div>
+            <a href="https://crescentshoppingcentre.ie/" target="_blank" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">
+              Check the site
+            </a>
+            <span class="absolute top-2 right-2 text-gray-400 text-sm">LIVE</span>
+          </div>
+        </div>
+        <div class="card gradient-border">
+          <div class="w-full h-64 overflow-y-auto rounded-t-lg border border-gray-700 auto-scroll" id="scrollContainer2">
+            <img src="Lorand Expert.png" alt="Lorand Expert WordPress Website" class="w-full object-contain">
+          </div>
+          <div class="p-4">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-gray-400"></span>
+              <span class="text-sm text-gray-500">02</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Professional Website Maintenance</h3>
+            <p class="text-gray-400 mb-4">
+              A rebuilt WordPress site for Lorand Expert, optimized for scalability and user-friendliness.
+            </p>
+            <div class="flex space-x-2 mb-4">
+              <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Website Rebuild</span>
+              <span class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Web Maintenance</span>
+            </div>
+            <a href="https://lorandexpert.com/" target="_blank" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">
+              Check the site
+            </a>
+            <span class="absolute top-2 right-2 text-gray-400 text-sm">LIVE</span>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a href="https://faisaljaved.pro/my_projects.html" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-purple-700 transition">Read More</a>
+      </div>
+      <svg class="hand-drawn-arrow" style="bottom: 5%; right: 5%;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2C12 8 18 14 18 14M18 14L12 10M18 14L14 10" />
+      </svg>
     </div>
-    <svg class="hand-drawn-arrow" style="bottom: 5%; right: 5%;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M12 2C12 8 18 14 18 14M18 14L12 10M18 14L14 10" />
-    </svg>
-  </div>
-</section>
+  </section>
 
-
-  <!-- FAQ Section (Frequently asked questions) -->
+  <!-- FAQ Section -->
   <section id="faq" class="section relative">
     <div class="max-w-2xl mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-4">Frequently asked questions</h2>
-      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4" />
+      <h2 class="text-3xl font-bold text-center mb-4">Frequently Asked Questions</h2>
+      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Decorative Arrow" class="hand-drawn-arrow mx-auto mt-4" />
       <div class="space-y-4">
-        <!-- FAQ 1 -->
         <div class="card gradient-border p-2">
           <button class="w-full text-left flex justify-between items-center faq-question">
-            <span>How long does it take to build a site?</span>
+            <span>How long does it take to build a custom WordPress website?</span>
             <svg class="w-5 h-5 faq-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
           </button>
           <div class="faq-answer hidden mt-1 text-gray-400">
-            The timeline depends on the project's complexity. A simple site can take 5-7 days, while more complex sites with custom features may take 1-2 weeks. I’ll provide a detailed timeline after discussing your needs.
+            The timeline depends on the project's complexity. A simple WordPress site can take 5-7 days, while custom features may require 1-2 weeks.
           </div>
         </div>
-        <!-- FAQ 2 -->
         <div class="card gradient-border p-2">
           <button class="w-full text-left flex justify-between items-center faq-question">
-            <span>My site is done, can you offer support/maintenance work?</span>
+            <span>Do you offer ongoing WordPress support and maintenance?</span>
             <svg class="w-5 h-5 faq-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
           </button>
           <div class="faq-answer hidden mt-1 text-gray-400">
-            Yes, I offer ongoing support and maintenance services to keep your site running smoothly. This includes updates, security checks, and performance optimization, tailored to your needs.
+            Yes, I provide comprehensive support and maintenance services, including updates, security checks, and performance optimization.
           </div>
         </div>
-        <!-- FAQ 3 -->
         <div class="card gradient-border p-2">
           <button class="w-full text-left flex justify-between items-center faq-question">
-            <span>How long does it take to finish to secure my website?</span>
+            <span>How do you secure a WordPress website?</span>
             <svg class="w-5 h-5 faq-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
           </button>
           <div class="faq-answer hidden mt-1 text-gray-400">
-            Securing a website typically takes 6-7 hours, depending on its size and existing setup. This includes implementing SSL, backups, and security plugins, ensuring your site is fully protected.
+            I implement SSL certificates, regular backups, security plugins, and monitoring to protect your WordPress site from threats.
           </div>
         </div>
       </div>
@@ -525,42 +506,39 @@
     </div>
   </section>
 
-  <!-- Contact Section (Have a project in mind? Let’s chat!) -->
+  <!-- Contact Section -->
   <section id="contact" class="section relative">
-    <div class="max-w-lg mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-4">Have a project in mind? Let’s chat!</h2>
-      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Hand-drawn arrow" class="hand-drawn-arrow mx-auto mt-4 mb-4" />
+    <div class="max-w-lg mx-auto text-center" itemscope itemtype="https://schema.org/Person">
+      <h2 class="text-3xl font-bold mb-4">Have a Project in Mind? Let’s Chat!</h2>
+      <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Decorative Arrow" class="hand-drawn-arrow mx-auto mt-4 mb-4" />
       <div class="flex flex-wrap justify-center gap-6 mb-4">
-        <!-- Email -->
-        <a href="mailto:aditya@webflow@gmail.com" class="text-gray-400 hover:text-white flex items-center space-x-3">
+        <a href="/cdn-cgi/l/email-protection#b3d2d7dac7cad2f3c4d6d1d5dfdcc4f3d4ded2dadf9dd0dcde" class="text-gray-400 hover:text-white flex items-center space-x-3" itemprop="email">
           <div class="bg-gray-700/50 rounded-full p-2">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l9-6 9 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16" /></svg>
           </div>
           <div class="flex flex-col">
             <span class="contact-label">Feel free to email me your project plan</span>
-            <span class="contact-value">mj2059723@gmail.com</span>
+            <span class="contact-value"><span class="__cf_email__" data-cfemail="25580f5755505c525756255208040c094b060a08">mj2059723@gmail.com</span></span>
           </div>
         </a>
-<!-- Upwork -->
-<a href="https://www.upwork.com/freelancers/~011e0dbf7dc557be72?mp_source=share" target="_blank" class="text-gray-400 hover:text-white flex items-center space-x-3">
-  <div class="bg-gray-700/50 rounded-full p-2">
-    <img src="https://cutt.ly/5rhm49LP" alt="Upwork logo" class="w-6 h-6" />
-  </div>
-  <div class="flex flex-col">
-    <span class="contact-label">upwork</span>
-    <span class="contact-value">Faisal Javed</span>
-  </div>
-</a>
-<!-- WhatsApp -->
-<a href="https://wa.me/+923298898567" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white flex items-center space-x-3">
-  <div class="bg-gray-700/50 rounded-full p-2">
-    <img src="https://cutt.ly/JrkSiyw7" alt="WhatsApp logo" class="w-6 h-6" />
-  </div>
-  <div class="flex flex-col">
-    <span class="contact-label">whatsapp</span>
-    <span class="contact-value">Faisal Javed</span>
-  </div>
-</a>
+        <a href="https://www.upwork.com/freelancers/~011e0dbf7dc557be72?mp_source=share" target="_blank" class="text-gray-400 hover:text-white flex items-center space-x-3">
+          <div class="bg-gray-700/50 rounded-full p-2">
+            <img src="https://cutt.ly/5rhm49LP" alt="Upwork Freelance Platform" class="w-6 h-6" />
+          </div>
+          <div class="flex flex-col">
+            <span class="contact-label">Upwork</span>
+            <span class="contact-value">Faisal Javed</span>
+          </div>
+        </a>
+        <a href="https://wa.me/+923298898567" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white flex items-center space-x-3" itemprop="telephone">
+          <div class="bg-gray-700/50 rounded-full p-2">
+            <img src="https://cutt.ly/JrkSiyw7" alt="WhatsApp Contact" class="w-6 h-6" />
+          </div>
+          <div class="flex flex-col">
+            <span class="contact-label">WhatsApp</span>
+            <span class="contact-value">+92 329 8898567</span>
+          </div>
+        </a>
       </div>
       <svg class="hand-drawn-arrow mx-auto mt-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 2C12 8 18 14 18 14M18 14L12 10M18 14L14 10" />
@@ -578,10 +556,9 @@
     </div>
   </footer>
 
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
-    // Ensure DOM is fully loaded before attaching event listeners
     document.addEventListener('DOMContentLoaded', function() {
-      // Navbar Scroll Effect
       window.addEventListener('scroll', () => {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
@@ -590,38 +567,21 @@
           navbar.classList.remove('scrolled');
         }
       });
-
-      // Mobile Menu Toggle
       const menuToggle = document.getElementById('menu-toggle');
       const mobileMenu = document.getElementById('mobile-menu');
       menuToggle.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
       });
-
-      // Smooth Scrolling for Anchor Links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
           e.preventDefault();
           const targetId = this.getAttribute('href').substring(1);
           const targetElement = document.getElementById(targetId);
           if (targetElement) {
-            targetElement.scrollIntoView({
-              behavior: 'smooth'
-            });
+            targetElement.scrollIntoView({ behavior: 'smooth' });
           }
         });
       });
-
-      // Handle Navigation to Skills Page
-      document.querySelectorAll('a[href="skills.html"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          console.log('Skills link clicked, navigating to skills.html'); // Debug log
-          navigateTo('skills.html');
-        });
-      });
-
-      // FAQ Toggle Functionality
       document.querySelectorAll('.faq-question').forEach(button => {
         button.addEventListener('click', () => {
           const answer = button.nextElementSibling;
@@ -630,138 +590,13 @@
           chevron.classList.toggle('open');
         });
       });
-
-      // GSAP Animations
       gsap.registerPlugin(ScrollTrigger);
-
-      // Home Section Animation
-      gsap.from('#home > div', {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        delay: 0.5
-      });
-
-      // Services Section Animation
-      gsap.from('#services .card', {
-        scrollTrigger: {
-          trigger: '#services',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 0.8
-      });
-
-      // Clients Section Animation
-      gsap.from('#clients .card', {
-        scrollTrigger: {
-          trigger: '#clients',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        duration: 1
-      });
-
-      // Work Section Animation
-      gsap.from('#work .card', {
-        scrollTrigger: {
-          trigger: '#work',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 0.8
-      });
-
-      // Retainer Section Animation
-      gsap.from('#retainer .card', {
-        scrollTrigger: {
-          trigger: '#retainer',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        duration: 1
-      });
-
-      // FAQ Section Animation
-      gsap.from('#faq .card', {
-        scrollTrigger: {
-          trigger: '#faq',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 0.8
-      });
-
-      // Contact Section Animation
-      gsap.from('#contact > div', {
-        scrollTrigger: {
-          trigger: '#contact',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 50,
-        duration: 1
-      });
-    });
-
-    // Navigation Function for Smooth Transition
-    function navigateTo(url) {
-      // Fade out current content
-      gsap.to('body', {
-        opacity: 0,
-        duration: 0.5,
-        onComplete: () => {
-          // Fetch the new page content
-          fetch(url)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return response.text();
-            })
-            .then(data => {
-              // Parse the fetched HTML
-              const parser = new DOMParser();
-              const doc = parser.parseFromString(data, 'text/html');
-              // Replace the body content
-              document.body.innerHTML = doc.body.innerHTML;
-              // Update the document title
-              document.title = doc.title;
-              // Reattach scripts (since replacing innerHTML removes event listeners)
-              const scripts = doc.querySelectorAll('script');
-              scripts.forEach(oldScript => {
-                const newScript = document.createElement('script');
-                newScript.textContent = oldScript.textContent;
-                document.body.appendChild(newScript);
-              });
-              // Fade in the new content
-              gsap.from('body', {
-                opacity: 0,
-                duration: 0.5
-              });
-              // Update browser history
-              window.history.pushState({}, '', url);
-            })
-            .catch(error => {
-              console.error('Error navigating:', error);
-              // Fallback: redirect using window.location
-              window.location.href = url;
-            });
-        }
-      });
-    }
-
-    // Handle Popstate for Browser Back/Forward
-    window.addEventListener('popstate', function() {
-      navigateTo(window.location.href);
+      gsap.from('#home > div', { opacity: 0, y: 50, duration: 1, delay: 0.5 });
+      gsap.from('#services .card', { scrollTrigger: { trigger: '#services', start: 'top 80%' }, opacity: 0, y: 50, stagger: 0.2, duration: 0.8 });
+      gsap.from('#clients .card', { scrollTrigger: { trigger: '#clients', start: 'top 80%' }, opacity: 0, y: 50, duration: 1 });
+      gsap.from('#work .card', { scrollTrigger: { trigger: '#work', start: 'top 80%' }, opacity: 0, y: 50, stagger: 0.2, duration: 0.8 });
+      gsap.from('#faq .card', { scrollTrigger: { trigger: '#faq', start: 'top 80%' }, opacity: 0, y: 50, stagger: 0.2, duration: 0.8 });
+      gsap.from('#contact > div', { scrollTrigger: { trigger: '#contact', start: 'top 80%' }, opacity: 0, y: 50, duration: 1 });
     });
   </script>
 </body>
