@@ -2,6 +2,7 @@ import os
 import glob
 import datetime
 import logging
+import re
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 import requests
@@ -58,6 +59,14 @@ def get_priority(url):
     else:
         return "0.5"
 
+def clean_text(text):
+    """Clean text to remove invalid characters for XML."""
+    if not text:
+        return ""
+    # Remove invalid XML characters
+    text = re.sub(r'[^\x09\x0A\x0D\x20-\x7E\x85\xA0-\uD7FF\uE000-\uFFFD]', '', text)
+    return text
+
 def crawl_page(url, visited):
     if url in visited or not url.startswith(SITE_URL):
         logging.info(f"Skipping URL {url} - already visited or not in domain")
@@ -85,10 +94,11 @@ def extract_images(soup, page_url):
         for img in soup.find_all('img'):
             src = img.get('src') or img.get('data-src', '')
             src = urljoin(page_url, src)
-            alt = img.get('alt', '')
-            title = img.get('title', '')
-            images.append({"src": src, "alt": alt, "title": title})
-            logging.info(f"Found image on {page_url}: {src}")
+            alt = clean_text(img.get('alt', ''))
+            title = clean_text(img.get('title', ''))
+            if src:
+                images.append({"src": src, "alt": alt, "title": title})
+                logging.info(f"Found image on {page_url}: {src}")
     except Exception as e:
         logging.error(f"Error extracting images from {page_url}: {str(e)}")
     return images
@@ -99,9 +109,10 @@ def extract_videos(soup, page_url):
         for video in soup.find_all(['video', 'iframe']):
             src = video.get('src') or video.get('data-src', '')
             src = urljoin(page_url, src)
-            title = video.get('title', '')
-            videos.append({"src": src, "title": title})
-            logging.info(f"Found video on {page_url}: {src}")
+            title = clean_text(video.get('title', ''))
+            if src:
+                videos.append({"src": src, "title": title})
+                logging.info(f"Found video on {page_url}: {src}")
     except Exception as e:
         logging.error(f"Error extracting videos from {page_url}: {str(e)}")
     return videos
@@ -120,7 +131,10 @@ def generate_page_sitemap(urls):
     return urlset
 
 def generate_image_sitemap(urls):
-    urlset = ET.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9", xmlnsimage="http://www.google.com/schemas/sitemap-image/1.1")
+    urlset = ET.Element("urlset")
+    urlset.set("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
+    urlset.set("xmlns:image", "http://www.google.com/schemas/sitemap-image/1.1")
+    has_entries = False
     for url in urls:
         try:
             response = requests.get(url, timeout=5)
@@ -136,12 +150,18 @@ def generate_image_sitemap(urls):
                     ET.SubElement(image_elem, "image:caption").text = img["alt"]
                 if img["title"]:
                     ET.SubElement(image_elem, "image:title").text = img["title"]
+                has_entries = True
         except Exception as e:
             logging.error(f"Error generating image sitemap for {url}: {str(e)}")
+    if not has_entries:
+        logging.info("No images found, creating empty image sitemap")
     return urlset
 
 def generate_video_sitemap(urls):
-    urlset = ET.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9", xmlnsvideo="http://www.google.com/schemas/sitemap-video/1.1")
+    urlset = ET.Element("urlset")
+    urlset.set("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
+    urlset.set("xmlns:video", "http://www.google.com/schemas/sitemap-video/1.1")
+    has_entries = False
     for url in urls:
         try:
             response = requests.get(url, timeout=5)
@@ -155,8 +175,11 @@ def generate_video_sitemap(urls):
                 ET.SubElement(video_elem, "video:content_loc").text = video["src"]
                 if video["title"]:
                     ET.SubElement(video_elem, "video:title").text = video["title"]
+                has_entries = True
         except Exception as e:
             logging.error(f"Error generating video sitemap for {url}: {str(e)}")
+    if not has_entries:
+        logging.info("No videos found, creating empty video sitemap")
     return urlset
 
 def generate_pdf_sitemap():
@@ -175,7 +198,7 @@ def generate_pdf_sitemap():
 
 def write_sitemap(urlset, filename):
     try:
-        xmlstr = minidom.parseString(ET.tostring(urlset)).toprettyxml(indent="  ")
+        xmlstr = minidom.parseString(ET.tostring(urlset, encoding='utf-8')).toprettyxml(indent="  ")
         with open(filename, "w", encoding="utf-8") as f:
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             f.write(xmlstr)
