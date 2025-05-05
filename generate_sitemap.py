@@ -8,10 +8,9 @@ import requests
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 import git
-import re
 
 # Setup logging
-logging.basicConfig(filename='sitemap.log', level=logging.INFO)
+logging.basicConfig(filename='sitemap.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Configuration
 SITE_URL = "https://faisaljaved.pro"
@@ -26,14 +25,21 @@ PING_URLS = [
 ]
 
 def ensure_sitemap_dir():
-    if not os.path.exists(SITEMAP_DIR):
-        os.makedirs(SITEMAP_DIR)
-        logging.info(f"Created sitemap directory: {SITEMAP_DIR}")
+    try:
+        if not os.path.exists(SITEMAP_DIR):
+            os.makedirs(SITEMAP_DIR)
+            logging.info(f"Created sitemap directory: {SITEMAP_DIR}")
+        else:
+            logging.info(f"Sitemap directory already exists: {SITEMAP_DIR}")
+    except Exception as e:
+        logging.error(f"Error creating sitemap directory: {str(e)}")
+        raise
 
 def get_last_modified(file_path):
     try:
         return datetime.datetime.fromtimestamp(os.path.getmtime(file_path)).strftime('%Y-%m-%d')
     except:
+        logging.warning(f"Could not get last modified for {file_path}, using current date")
         return datetime.datetime.now().strftime('%Y-%m-%d')
 
 def get_change_frequency(url):
@@ -54,11 +60,14 @@ def get_priority(url):
 
 def crawl_page(url, visited):
     if url in visited or not url.startswith(SITE_URL):
+        logging.info(f"Skipping URL {url} - already visited or not in domain")
         return []
     visited.add(url)
     urls = []
     try:
+        logging.info(f"Crawling URL: {url}")
         response = requests.get(url, timeout=5)
+        response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
         for link in soup.find_all('a', href=True):
             href = urljoin(url, link['href'])
@@ -72,21 +81,29 @@ def crawl_page(url, visited):
 
 def extract_images(soup, page_url):
     images = []
-    for img in soup.find_all('img'):
-        src = img.get('src') or img.get('data-src', '')  # Support lazy-loaded images
-        src = urljoin(page_url, src)
-        alt = img.get('alt', '')
-        title = img.get('title', '')
-        images.append({"src": src, "alt": alt, "title": title})
+    try:
+        for img in soup.find_all('img'):
+            src = img.get('src') or img.get('data-src', '')
+            src = urljoin(page_url, src)
+            alt = img.get('alt', '')
+            title = img.get('title', '')
+            images.append({"src": src, "alt": alt, "title": title})
+            logging.info(f"Found image on {page_url}: {src}")
+    except Exception as e:
+        logging.error(f"Error extracting images from {page_url}: {str(e)}")
     return images
 
 def extract_videos(soup, page_url):
     videos = []
-    for video in soup.find_all(['video', 'iframe']):
-        src = video.get('src') or video.get('data-src', '')
-        src = urljoin(page_url, src)
-        title = video.get('title', '')
-        videos.append({"src": src, "title": title})
+    try:
+        for video in soup.find_all(['video', 'iframe']):
+            src = video.get('src') or video.get('data-src', '')
+            src = urljoin(page_url, src)
+            title = video.get('title', '')
+            videos.append({"src": src, "title": title})
+            logging.info(f"Found video on {page_url}: {src}")
+    except Exception as e:
+        logging.error(f"Error extracting videos from {page_url}: {str(e)}")
     return videos
 
 def generate_page_sitemap(urls):
@@ -99,6 +116,7 @@ def generate_page_sitemap(urls):
             ET.SubElement(url_elem, "lastmod").text = get_last_modified(file_path)
         ET.SubElement(url_elem, "changefreq").text = get_change_frequency(url)
         ET.SubElement(url_elem, "priority").text = get_priority(url)
+    logging.info(f"Generated page sitemap with {len(urls)} URLs")
     return urlset
 
 def generate_image_sitemap(urls):
@@ -106,6 +124,7 @@ def generate_image_sitemap(urls):
     for url in urls:
         try:
             response = requests.get(url, timeout=5)
+            response.raise_for_status()
             soup = BeautifulSoup(response.text, 'html.parser')
             images = extract_images(soup, url)
             for img in images:
@@ -126,6 +145,7 @@ def generate_video_sitemap(urls):
     for url in urls:
         try:
             response = requests.get(url, timeout=5)
+            response.raise_for_status()
             soup = BeautifulSoup(response.text, 'html.parser')
             videos = extract_videos(soup, url)
             for video in videos:
@@ -141,6 +161,7 @@ def generate_video_sitemap(urls):
 
 def generate_pdf_sitemap():
     urlset = ET.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
+    pdf_count = 0
     for file_path in glob.glob(f"{LOCAL_PATH}/**/*.pdf", recursive=True):
         url = urljoin(SITE_URL, os.path.relpath(file_path, LOCAL_PATH).replace("\\", "/"))
         url_elem = ET.SubElement(urlset, "url")
@@ -148,36 +169,48 @@ def generate_pdf_sitemap():
         ET.SubElement(url_elem, "lastmod").text = get_last_modified(file_path)
         ET.SubElement(url_elem, "changefreq").text = "monthly"
         ET.SubElement(url_elem, "priority").text = "0.5"
+        pdf_count += 1
+    logging.info(f"Generated PDF sitemap with {pdf_count} PDFs")
     return urlset
 
 def write_sitemap(urlset, filename):
-    xmlstr = minidom.parseString(ET.tostring(urlset)).toprettyxml(indent="  ")
-    with open(filename, "w", encoding="utf-8") as f:
-        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-        f.write(xmlstr)
-    logging.info(f"Generated sitemap: {filename}")
+    try:
+        xmlstr = minidom.parseString(ET.tostring(urlset)).toprettyxml(indent="  ")
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+            f.write(xmlstr)
+        logging.info(f"Generated sitemap: {filename}")
+    except Exception as e:
+        logging.error(f"Error writing sitemap {filename}: {str(e)}")
+        raise
 
 def generate_sitemap_index():
     sitemap_index = ET.Element("sitemapindex", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
+    sitemap_count = 0
     for sitemap_file in glob.glob(f"{SITEMAP_DIR}/*.xml"):
         if sitemap_file != SITEMAP_INDEX_FILE:
             sitemap = ET.SubElement(sitemap_index, "sitemap")
-            ET.SubElement(sitemap, "loc").text = urljoin(SITE_URL, os.path.relpath(sitemap_file, LOCAL_PATH).replace("\\ frustrations, "/"))
+            ET.SubElement(sitemap, "loc").text = urljoin(SITE_URL, os.path.relpath(sitemap_file, LOCAL_PATH).replace("\\", "/"))
             ET.SubElement(sitemap, "lastmod").text = get_last_modified(sitemap_file)
+            sitemap_count += 1
+    logging.info(f"Generated sitemap index with {sitemap_count} sitemaps")
     return sitemap_index
 
 def update_robots_txt():
     sitemap_url = urljoin(SITE_URL, "sitemap.xml")
-    if os.path.exists(ROBOTS_FILE):
-        with open(ROBOTS_FILE, "r") as f:
-            content = f.read()
-        if "Sitemap:" not in content:
-            with open(ROBOTS_FILE, "a") as f:
-                f.write(f"\nSitemap: {sitemap_url}\n")
-    else:
-        with open(ROBOTS_FILE, "w") as f:
-            f.write(f"Sitemap: {sitemap_url}\n")
-    logging.info("Updated robots.txt")
+    try:
+        if os.path.exists(ROBOTS_FILE):
+            with open(ROBOTS_FILE, "r") as f:
+                content = f.read()
+            if "Sitemap:" not in content:
+                with open(ROBOTS_FILE, "a") as f:
+                    f.write(f"\nSitemap: {sitemap_url}\n")
+        else:
+            with open(ROBOTS_FILE, "w") as f:
+                f.write(f"User-agent: *\nSitemap: {sitemap_url}\n")
+        logging.info("Updated robots.txt")
+    except Exception as e:
+        logging.error(f"Error updating robots.txt: {str(e)}")
 
 def ping_search_engines():
     sitemap_url = urljoin(SITE_URL, "sitemap.xml")
@@ -200,10 +233,16 @@ def commit_and_push():
         logging.error(f"Error committing/pushing: {str(e)}")
 
 def main():
+    logging.info("Starting sitemap generation")
     ensure_sitemap_dir()
     visited = set()
     urls = [SITE_URL]
-    urls.extend(crawl_page(SITE_URL, visited))
+    crawled_urls = crawl_page(SITE_URL, visited)
+    urls.extend(crawled_urls)
+    logging.info(f"Total URLs crawled: {len(urls)}")
+
+    if not urls:
+        logging.warning("No URLs found to generate sitemaps. Creating empty sitemaps.")
     
     write_sitemap(generate_page_sitemap(urls), f"{SITEMAP_DIR}/sitemap-pages.xml")
     write_sitemap(generate_image_sitemap(urls), f"{SITEMAP_DIR}/sitemap-images.xml")
@@ -214,6 +253,7 @@ def main():
     update_robots_txt()
     ping_search_engines()
     commit_and_push()
+    logging.info("Sitemap generation completed")
 
 if __name__ == "__main__":
     main()
