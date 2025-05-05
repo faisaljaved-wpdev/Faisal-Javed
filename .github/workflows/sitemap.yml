@@ -1,0 +1,27 @@
+name: Generate and Deploy Sitemap
+on:
+  push:
+    branches:
+      - main
+jobs:
+  generate-sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 lxml
+      - name: Generate sitemap
+        run: python generate_sitemap.py
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add sitemap/
+          git add robots.txt
+          git commit -m "Auto-update sitemap and robots.txt" || true
+          git push
