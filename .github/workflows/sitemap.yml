@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 lxml pygit2
+          pip install requests beautifulsoup4 lxml GitPython
       - name: Generate sitemap
         run: python generate_sitemap.py
       - name: Commit and push changes
