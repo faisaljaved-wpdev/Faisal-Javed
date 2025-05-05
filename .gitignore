@@ -1,0 +1,9 @@
+# Ignore sitemap log file
+sitemap.log
+
+# Ignore generated sitemap files (they will be regenerated)
+sitemap/
+
+# Python cache
+__pycache__/
+*.pyc
