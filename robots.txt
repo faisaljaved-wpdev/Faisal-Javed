@@ -1,4 +1,7 @@
 User-agent: *
 Disallow: /private/
 
-Sitemap: https://faisaljaved.pro/sitemap.xml
+User-agent: Google-adstxt
+Disallow:
+
+Sitemap: https://faisaljaved.pro/sitemap.yml
