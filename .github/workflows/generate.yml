@@ -29,8 +29,7 @@ jobs:
     ls -R .
 
       - name: Run sitemap script
-        run: |
-          python genrate_sitemap.py
+        run: python genrate_sitemap.py
 
       - name: Commit and push updated sitemap
         run: |
