@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.faisaljaved.pro/</loc>
+    <image:image>
+      <image:loc>https://www.faisaljaved.pro/Online%20Marketplace.jpg</image:loc>
+      <image:title>Online Marketplace Project</image:title>
+      <image:caption>Showcase of Online Marketplace website developed by Faisal Javed</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.faisaljaved.pro/Faisal%20Javed%20-copy.jpg</image:loc>
+      <image:title>Faisal Javed Profile Image</image:title>
+      <image:caption>Profile image of Faisal Javed, WordPress Developer</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.faisaljaved.pro/Lorand%20Expert.png</image:loc>
+      <image:title>Lorand Expert Project</image:title>
+      <image:caption>Lorand Expert website design by Faisal Javed</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.faisaljaved.pro/Crescent%20Shopping%20Center.png</image:loc>
+      <image:title>Crescent Shopping Center Project</image:title>
+      <image:caption>Crescent Shopping Center website developed by Faisal Javed</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.faisaljaved.pro/PK-Decoration.jpg</image:loc>
+      <image:title>PK Decoration Project</image:title>
+      <image:caption>PK Decoration website showcase by Faisal Javed</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.faisaljaved.pro/Faisal%20Javed%20(Portfolio).png</image:loc>
+      <image:title>Faisal Javed Portfolio</image:title>
+      <image:caption>Portfolio image showcasing Faisal Javed work</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.faisaljaved.pro/Crumbs%20and%20Chaos.png</image:loc>
+      <image:title>Crumbs and Chaos Project</image:title>
+      <image:caption>Crumbs and Chaos website design by Faisal Javed</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.faisaljaved.pro/logo.jpeg</image:loc>
+      <image:title>Faisal Javed app Logo</image:title>
+      <image:caption>Official logo of Faisal Javed Pak Bill Checker</image:caption>
+    </image:image>
+  </url>
+</urlset>
