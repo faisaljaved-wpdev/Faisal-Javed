@@ -1,62 +1,37 @@
 import os
-import requests
-from urllib.parse import urljoin
-from bs4 import BeautifulSoup
+import re
 import logging
+from urllib.parse import urljoin
 from datetime import datetime
-from xml.etree.ElementTree import Element, SubElement, tostring, ElementTree
+from xml.etree.ElementTree import Element, SubElement, ElementTree
+import subprocess
 
-# Config
+# Configuration
 SITE_URL = "https://faisaljaved.pro"
-STATIC_PATHS = ["privacy-policy", "terms-of-service", "about"]
-SAVE_DIR = "public"  # Directory where the sitemap will be saved
-ROBOTS_PATH = os.path.join(SAVE_DIR, "robots.txt")
-SITEMAP_PATH = os.path.join(SAVE_DIR, "sitemap.xml")
+ROOT_DIR = "."
+EXCLUDE_DIRS = {"node_modules", "venv", "env", ".git", ".next", "__pycache__", "public"}
+SITEMAP_PATH = os.path.join("public", "sitemap.xml")
+ROBOTS_PATH = os.path.join("public", "robots.txt")
 
-# Logging setup
-logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+# Logging
+logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
+def is_valid_file(filename):
+    return filename.endswith((".html", ".htm", ".php", ".pdf", ".jpg", ".jpeg", ".png", ".webp", ".mp4"))
 
-def fetch_static_pages():
+def get_urls():
     urls = []
-    for path in STATIC_PATHS:
-        full_url = urljoin(SITE_URL + "/", path)
-        urls.append(full_url)
+    for dirpath, dirnames, filenames in os.walk(ROOT_DIR):
+        dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS]
+        for filename in filenames:
+            if is_valid_file(filename):
+                filepath = os.path.join(dirpath, filename)
+                rel_path = os.path.relpath(filepath, ROOT_DIR).replace(os.sep, "/")
+                if rel_path.startswith("public/"):
+                    rel_path = rel_path[len("public/"):]
+                url = urljoin(SITE_URL + "/", rel_path)
+                urls.append(url)
     return urls
-
-
-def crawl_page(url, visited):
-    if url in visited or not url.startswith(SITE_URL):
-        logging.info(f"Skipping URL {url} - already visited or not in domain")
-        return []
-
-    visited.add(url)
-    urls = []
-
-    try:
-        logging.info(f"Crawling URL: {url}")
-        response = requests.get(url, timeout=5)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'html.parser')
-
-        for link in soup.find_all('a', href=True):
-            href = link['href'].strip()
-
-            if href.startswith("//"):
-                href = "https:" + href
-            elif not href.startswith("http"):
-                href = urljoin(url, href)
-
-            if href.startswith(SITE_URL) and href not in visited:
-                urls.append(href)
-                urls.extend(crawl_page(href, visited))
-
-        return urls
-
-    except Exception as e:
-        logging.error(f"Error crawling {url}: {str(e)}")
-        return []
-
 
 def generate_sitemap(urls):
     urlset = Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
@@ -68,11 +43,10 @@ def generate_sitemap(urls):
         lastmod = SubElement(url_element, "lastmod")
         lastmod.text = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
+    os.makedirs(os.path.dirname(SITEMAP_PATH), exist_ok=True)
     tree = ElementTree(urlset)
-    os.makedirs(SAVE_DIR, exist_ok=True)
     tree.write(SITEMAP_PATH, encoding="utf-8", xml_declaration=True)
     logging.info(f"Sitemap written to {SITEMAP_PATH}")
-
 
 def update_robots():
     robots_text = f"""User-agent: *
@@ -80,18 +54,25 @@ Disallow:
 
 Sitemap: {SITE_URL}/sitemap.xml
 """
+    os.makedirs(os.path.dirname(ROBOTS_PATH), exist_ok=True)
     with open(ROBOTS_PATH, "w") as f:
         f.write(robots_text)
     logging.info(f"robots.txt written to {ROBOTS_PATH}")
 
+def git_push():
+    try:
+        subprocess.run(["git", "add", "."], check=True)
+        subprocess.run(["git", "commit", "-m", "Update sitemap and robots.txt"], check=True)
+        subprocess.run(["git", "push"], check=True)
+        logging.info("Changes pushed to GitHub.")
+    except subprocess.CalledProcessError as e:
+        logging.error(f"Git error: {e}")
 
 def main():
-    visited = set()
-    all_urls = fetch_static_pages()
-    all_urls.extend(crawl_page(SITE_URL, visited))
-    generate_sitemap(all_urls)
+    urls = get_urls()
+    generate_sitemap(urls)
     update_robots()
-
+    git_push()
 
 if __name__ == "__main__":
     main()
