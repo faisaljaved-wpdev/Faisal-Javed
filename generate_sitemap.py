@@ -1,4 +1,6 @@
 import os
+os.makedirs("sitemaps", exist_ok=True)
+import os
 import re
 import logging
 from urllib.parse import urljoin
