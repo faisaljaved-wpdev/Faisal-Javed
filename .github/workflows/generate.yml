@@ -1,0 +1,35 @@
+name: Generate Sitemap
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies (if any)
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Run sitemap script
+        run: |
+          python genrate_sitemap.py
+
+      - name: Commit and push updated sitemap
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/sitemap.xml public/robots.txt sitemaps/
+          git commit -m "Auto-update sitemap via GitHub Actions" || echo "No changes to commit"
+          git push
