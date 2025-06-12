@@ -1,35 +1,78 @@
-name: Auto Generate Sitemap
+import os
+import re
+import logging
+from urllib.parse import urljoin
+from datetime import datetime
+from xml.etree.ElementTree import Element, SubElement, ElementTree
+import subprocess
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+# Configuration
+SITE_URL = "https://faisaljaved.pro"
+ROOT_DIR = "."
+EXCLUDE_DIRS = {"node_modules", "venv", "env", ".git", ".next", "__pycache__", "public"}
+SITEMAP_PATH = os.path.join("public", "sitemap.xml")
+ROBOTS_PATH = os.path.join("public", "robots.txt")
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# Logging
+logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
+def is_valid_file(filename):
+    return filename.endswith((".html", ".htm", ".php", ".pdf", ".jpg", ".jpeg", ".png", ".webp", ".mp4"))
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+def get_urls():
+    urls = []
+    for dirpath, dirnames, filenames in os.walk(ROOT_DIR):
+        dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS]
+        for filename in filenames:
+            if is_valid_file(filename):
+                filepath = os.path.join(dirpath, filename)
+                rel_path = os.path.relpath(filepath, ROOT_DIR).replace(os.sep, "/")
+                if rel_path.startswith("public/"):
+                    rel_path = rel_path[len("public/"):]
+                url = urljoin(SITE_URL + "/", rel_path)
+                urls.append(url)
+    return urls
 
-      - name: Install Dependencies
-        run: pip install --upgrade pip
+def generate_sitemap(urls):
+    urlset = Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
 
-      - name: Run generate_sitemap.py
-        run: python generate_sitemap.py
+    for url in sorted(set(urls)):
+        url_element = SubElement(urlset, "url")
+        loc = SubElement(url_element, "loc")
+        loc.text = url
+        lastmod = SubElement(url_element, "lastmod")
+        lastmod.text = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
-      - name: Commit and Push Changes
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "🤖 Auto update sitemap.xml & robots.txt" || echo "No changes to commit"
-          git push
+    os.makedirs(os.path.dirname(SITEMAP_PATH), exist_ok=True)
+    tree = ElementTree(urlset)
+    tree.write(SITEMAP_PATH, encoding="utf-8", xml_declaration=True)
+    logging.info(f"Sitemap written to {SITEMAP_PATH}")
 
+def update_robots():
+    robots_text = f"""User-agent: *
+Disallow:
+
+Sitemap: {SITE_URL}/sitemap.xml
+"""
+    os.makedirs(os.path.dirname(ROBOTS_PATH), exist_ok=True)
+    with open(ROBOTS_PATH, "w") as f:
+        f.write(robots_text)
+    logging.info(f"robots.txt written to {ROBOTS_PATH}")
+
+def git_push():
+    try:
+        subprocess.run(["git", "add", "."], check=True)
+        subprocess.run(["git", "commit", "-m", "Update sitemap and robots.txt"], check=True)
+        subprocess.run(["git", "push"], check=True)
+        logging.info("Changes pushed to GitHub.")
+    except subprocess.CalledProcessError as e:
+        logging.error(f"Git error: {e}")
+
+def main():
+    urls = get_urls()
+    generate_sitemap(urls)
+    update_robots()
+    git_push()
+
+if __name__ == "__main__":
+    main()
