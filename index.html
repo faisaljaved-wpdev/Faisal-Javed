@@ -550,15 +550,19 @@ function gtag_report_conversion(url) {
       <h2 class="text-3xl font-bold mb-4">Have a Project in Mind? Let’s Chat!</h2>
       <img src="https://cdn.prod.website-files.com/6395ca47027db0603f0d7059/63ac5c6fd31a0e5aae226abd_Vector.svg" alt="Decorative Arrow" class="hand-drawn-arrow mx-auto mt-4 mb-4" />
       <div class="flex flex-wrap justify-center gap-6 mb-4">
-        <a href="/cdn-cgi/l/email-protection#b3d2d7dac7cad2f3c4d6d1d5dfdcc4f3d4ded2dadf9dd0dcde" class="text-gray-400 hover:text-white flex items-center space-x-3" itemprop="email">
-          <div class="bg-gray-700/50 rounded-full p-2">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l9-6 9 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16" /></svg>
-          </div>
-          <div class="flex flex-col">
-            <span class="contact-label">Feel free to email me your project plan</span>
-            <span class="contact-value"><span class="__cf_email__" data-cfemail="25580f5755505c525756255208040c094b060a08">info@faisaljaved.pro</span></span>
-          </div>
-        </a>
+<a href="/cdn-cgi/l/email-protection#b3d2d7dac7cad2f3c4d6d1d5dfdcc4f3d4ded2dadf9dd0dcde" 
+   onclick="return gtag_report_conversion('/cdn-cgi/l/email-protection#b3d2d7dac7cad2f3c4d6d1d5dfdcc4f3d4ded2dadf9dd0dcde')" 
+   class="text-gray-400 hover:text-white flex items-center space-x-3" 
+   itemprop="email">
+  <div class="bg-gray-700/50 rounded-full p-2">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l9-6 9 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16" /></svg>
+  </div>
+  <div class="flex flex-col">
+    <span class="contact-label">Feel free to email me your project plan</span>
+    <span class="contact-value"><span class="__cf_email__" data-cfemail="25580f5755505c525756255208040c094b060a08">info@faisaljaved.pro</span></span>
+  </div>
+</a>
+
         <a href="https://www.upwork.com/freelancers/~011e0dbf7dc557be72?mp_source=share" target="_blank" class="text-gray-400 hover:text-white flex items-center space-x-3">
           <div class="bg-gray-700/50 rounded-full p-2">
             <img src="https://cutt.ly/5rhm49LP" alt="Upwork Freelance Platform" class="w-6 h-6" />
@@ -568,7 +572,12 @@ function gtag_report_conversion(url) {
             <span class="contact-value">Faisal Javed</span>
           </div>
         </a>
-        <a href="https://wa.me/+923450357191" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white flex items-center space-x-3" itemprop="telephone">
+<a href="https://wa.me/+923450357191" 
+   onclick="return gtag_report_conversion('https://wa.me/+923450357191')" 
+   target="_blank" 
+   rel="noopener noreferrer" 
+   class="text-gray-400 hover:text-white flex items-center space-x-3" 
+   itemprop="telephone">
           <div class="bg-gray-700/50 rounded-full p-2">
             <img src="https://cutt.ly/JrkSiyw7" alt="WhatsApp Contact" class="w-6 h-6" />
           </div>
@@ -639,6 +648,7 @@ function gtag_report_conversion(url) {
   </script>
 </body>
 </html>
+
 
 
 
